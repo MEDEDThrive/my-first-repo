@@ -30,15 +30,15 @@
         .founder-info p { font-size: 13px; color: #64748b; font-weight: 500; }
         .footer { text-align: center; margin-top: 35px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* [PAGE SWITCHING LOGIC - DESIGN KO BINA CHEDE] */
+        /* [NEW PAGE LOGIC - WAHI GRID USE KI HAI JO MAIN PAGE PE HAI] */
         .page { display: none; }
         .active-page { display: block; }
-        .sub-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #0284c7; color: white; border: none; border-radius: 15px; font-weight: 600; cursor: pointer; text-align: left; }
-        .back-btn { background: #64748b; text-align: center; }
+        .back-btn { margin-top: 25px; display: inline-block; padding: 10px 20px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; }
     </style>
 </head>
 <body>
 
+<!-- HOME PAGE -->
 <div id="homePage" class="page active-page app-container">
     <div class="header">
         <div class="logo-placeholder">M</div>
@@ -77,23 +77,29 @@
     <div class="footer">MED ED THRIVE R.A. • Medical Portal</div>
 </div>
 
+<!-- SURGERY PAGE (SAME GRID AS MAIN PAGE) -->
 <div id="surgeryPage" class="page app-container">
     <h1>Surgical Procedures</h1>
-    <button class="sub-btn">🫀 Cardio O.T.</button>
-    <button class="sub-btn">🔪 Laparo O.T.</button>
-    <button class="sub-btn">🤰 Gynaec O.T.</button>
-    <button class="sub-btn">🧠 Neuro O.T.</button>
-    <button class="sub-btn">🦴 Ortho O.T.</button>
-    <button class="sub-btn back-btn" onclick="showPage('homePage')">Back to Home</button>
+    <div class="grid">
+        <div class="card">🫀<br>Cardio O.T.</div>
+        <div class="card">🔪<br>Laparo O.T.</div>
+        <div class="card">🤰<br>Gynaec O.T.</div>
+        <div class="card">🧠<br>Neuro O.T.</div>
+        <div class="card">🦴<br>Ortho O.T.</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
+<!-- EQUIPMENT PAGE (SAME GRID AS MAIN PAGE) -->
 <div id="equipmentPage" class="page app-container">
     <h1>Medical Equipment</h1>
-    <button class="sub-btn">⚙️ Sterilization Zone</button>
-    <button class="sub-btn">🏢 Store Lobby</button>
-    <button class="sub-btn">💧 Washing Area</button>
-    <button class="sub-btn">✨ Sterilization Zhon</button>
-    <button class="sub-btn back-btn" onclick="showPage('homePage')">Back to Home</button>
+    <div class="grid">
+        <div class="card">⚙️<br>Sterilization Zone</div>
+        <div class="card">🏢<br>Store Lobby</div>
+        <div class="card">💧<br>Washing Area</div>
+        <div class="card">✨<br>Sterilization Zhon</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
 <script>
