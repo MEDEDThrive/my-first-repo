@@ -30,7 +30,7 @@
         .founder-info p { font-size: 13px; color: #64748b; font-weight: 500; }
         .footer { text-align: center; margin-top: 35px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* [NEW PAGE LOGIC - WAHI GRID USE KI HAI JO MAIN PAGE PE HAI] */
+        /* [PAGE LOGIC] */
         .page { display: none; }
         .active-page { display: block; }
         .back-btn { margin-top: 25px; display: inline-block; padding: 10px 20px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; }
@@ -77,11 +77,11 @@
     <div class="footer">MED ED THRIVE R.A. • Medical Portal</div>
 </div>
 
-<!-- SURGERY PAGE (SAME GRID AS MAIN PAGE) -->
+<!-- SURGERY PAGE -->
 <div id="surgeryPage" class="page app-container">
     <h1>Surgical Procedures</h1>
     <div class="grid">
-        <div class="card">🫀<br>Cardio O.T.</div>
+        <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
         <div class="card">🔪<br>Laparo O.T.</div>
         <div class="card">🤰<br>Gynaec O.T.</div>
         <div class="card">🧠<br>Neuro O.T.</div>
@@ -90,7 +90,19 @@
     <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
-<!-- EQUIPMENT PAGE (SAME GRID AS MAIN PAGE) -->
+<!-- CARDIAC O.T. PAGE -->
+<div id="cardiacPage" class="page app-container">
+    <h1>Cardiac O.T. Operations</h1>
+    <div class="grid">
+        <div class="card">🫀<br>CABG Surgery</div>
+        <div class="card">🫀<br>Valve Replacement</div>
+        <div class="card">🫀<br>Heart Transplant</div>
+        <div class="card">🫀<br>Septal Defect Repair</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back to Surgical</a>
+</div>
+
+<!-- EQUIPMENT PAGE -->
 <div id="equipmentPage" class="page app-container">
     <h1>Medical Equipment</h1>
     <div class="grid">
