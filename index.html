@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MED ED THRIVE R.A. - Medical Portal</title>
     <style>
+        /* [AAPKA ORIGINAL CSS] */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: #f1f5f9; color: #1e293b; display: flex; justify-content: center; min-height: 100vh; padding: 20px; }
         .app-container { width: 100%; max-width: 450px; background: #ffffff; border-radius: 28px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; text-align: center; }
@@ -27,10 +28,10 @@
         .founder-info p { font-size: 13px; color: #64748b; font-weight: 500; }
         .footer { text-align: center; margin-top: 35px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Modal for Logic */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; }
-        .modal-content { background: #fff; padding: 20px; width: 90%; max-width: 400px; border-radius: 20px; }
-        .modal-btn { display: block; width: 100%; margin: 10px 0; padding: 12px; border-radius: 10px; border: none; background: #0284c7; color: white; font-weight: bold; cursor: pointer; }
+        /* Naye Modal Styles */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 999; }
+        .modal-content { background: white; padding: 20px; width: 90%; max-width: 400px; border-radius: 20px; text-align: center; max-height: 80vh; overflow-y: auto; }
+        .sub-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; background: #0284c7; color: white; border: none; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -43,11 +44,11 @@
     </div>
 
     <div class="grid">
-        <div class="card" onclick="alert('Options: Gynec, Laparo, Neuro, Ortho, Cardiac')">
+        <div class="card" onclick="openModal('surgical')">
             <span class="card-icon">🩺</span>
             <span class="card-title">Surgical Procedures</span>
         </div>
-        <div class="card" onclick="alert('Options: Sterilization Zone, Store Lobby, Washing Area')">
+        <div class="card" onclick="openModal('equipment')">
             <span class="card-icon">🔬</span>
             <span class="card-title">Medical Equipment</span>
         </div>
@@ -78,6 +79,46 @@
         MED ED THRIVE R.A. • Medical Portal
     </div>
 </div>
+
+<!-- Modal Structure -->
+<div id="mainModal" class="modal">
+    <div class="modal-content" id="modalData"></div>
+</div>
+
+<script>
+    function openModal(type) {
+        let modal = document.getElementById('mainModal');
+        let content = document.getElementById('modalData');
+        modal.style.display = 'flex';
+        
+        if(type === 'surgical') {
+            content.innerHTML = `<h3>Surgical Procedures</h3>
+                <button class="sub-btn">Cardio O.T.</button>
+                <button class="sub-btn">Laparo O.T.</button>
+                <button class="sub-btn">Gynaec O.T.</button>
+                <button class="sub-btn">Neuro O.T.</button>
+                <button class="sub-btn">Ortho O.T.</button>
+                <button class="sub-btn" style="background:#64748b" onclick="closeModal()">Close</button>`;
+        } else {
+            content.innerHTML = `<h3>Medical Equipment</h3>
+                <button class="sub-btn" onclick="showSterilization()">Sterilization Zone</button>
+                <button class="sub-btn">Store Lobby</button>
+                <button class="sub-btn">Washing Area</button>
+                <button class="sub-btn">Sterilization Zhon</button>
+                <button class="sub-btn" style="background:#64748b" onclick="closeModal()">Close</button>`;
+        }
+    }
+
+    function showSterilization() {
+        document.getElementById('modalData').innerHTML = `<h3>Sterilization Options</h3>
+            <button class="sub-btn">Autoclave Machine</button>
+            <button class="sub-btn">ETO Machine</button>
+            <button class="sub-btn">Ultrasonic Machine</button>
+            <button class="sub-btn" style="background:#64748b" onclick="openModal('equipment')">Back</button>`;
+    }
+
+    function closeModal() { document.getElementById('mainModal').style.display = 'none'; }
+</script>
 
 </body>
 </html>
