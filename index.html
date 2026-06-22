@@ -82,7 +82,7 @@
     <h1>Surgical Procedures</h1>
     <div class="grid">
         <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
-        <div class="card">🔪<br>Laparo O.T.</div>
+        <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
         <div class="card">🤰<br>Gynaec O.T.</div>
         <div class="card">🧠<br>Neuro O.T.</div>
         <div class="card">🦴<br>Ortho O.T.</div>
@@ -101,7 +101,18 @@
     </div>
     <a class="back-btn" onclick="showPage('surgeryPage')">Back to Surgical</a>
 </div>
-
+<!-- LAPARO O.T. PAGE -->
+<div id="laparoPage" class="page app-container">
+    <h1>Laparo O.T. Operations</h1>
+    <div class="grid">
+        <div class="card">🔭<br>Appendectomy</div>
+        <div class="card">📷<br>Cholecystectomy</div>
+        <div class="card">🏥<br>Hernia Repair</div>
+        <div class="card">⚡<br>Laparoscopic Biopsy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back to Surgical</a>
+</div>
+    
 <!-- EQUIPMENT PAGE -->
 <div id="equipmentPage" class="page app-container">
     <h1>Medical Equipment</h1>
