@@ -37,7 +37,7 @@
     </div>
     <div class="grid">
         <div class="card" onclick="showPage('surgeryPage')">🩺<br>Surgical Procedures</div>
-        <div class="card">🔬<br>Medical Equipment</div>
+        <div class="card" onclick="showPage('equipmentPage')">🔬<br>Medical Equipment</div>
         <div class="card">📚<br>Education Library</div>
         <div class="card">🧑‍⚕️<br>Patient Care</div>
     </div>
@@ -58,8 +58,53 @@
         <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
         <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
         <div class="card" onclick="showPage('gynaecPage')">🤰<br>Gynaec O.T.</div>
+        <div class="card" onclick="showPage('neuroPage')">🧠<br>Neuro O.T.</div>
+        <div class="card" onclick="showPage('orthoPage')">🦴<br>Ortho O.T.</div>
     </div>
     <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
+</div>
+
+<!-- MEDICAL EQUIPMENT PAGE -->
+<div id="equipmentPage" class="page app-container">
+    <h1>Medical Equipment</h1>
+    <div class="grid">
+        <div class="card">⚙️<br>OT Lights</div>
+        <div class="card">🖥️<br>Anesthesia Workstation</div>
+        <div class="card">📈<br>Multipara Monitor</div>
+        <div class="card">🔪<br>Electrocautery</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
+</div>
+
+<!-- NEURO O.T. PAGE (from 146830.jpg) -->
+<div id="neuroPage" class="page app-container">
+    <h1>Neuro O.T.</h1>
+    <div class="grid">
+        <div class="card">🧠<br>Brain Tumor Resection</div>
+        <div class="card">⚡<br>Aneurysm Clipping</div>
+        <div class="card">🩸<br>Trauma & Hematoma</div>
+        <div class="card">⚙️<br>VP Shunt</div>
+        <div class="card">⚡<br>DBS</div>
+        <div class="card">🔪<br>Microdiscectomy</div>
+        <div class="card">🏥<br>Laminectomy</div>
+        <div class="card">🔗<br>Spinal Fusion</div>
+        <div class="card">肿瘤<br>Spinal Tumor Excision</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
+</div>
+
+<!-- ORTHO O.T. PAGE (from 146827.jpg) -->
+<div id="orthoPage" class="page app-container">
+    <h1>Ortho O.T.</h1>
+    <div class="grid">
+        <div class="card">🛠️<br>ORIF</div>
+        <div class="card">🔩<br>External Fixation</div>
+        <div class="card">🦵<br>Total Knee Replacement</div>
+        <div class="card">🦴<br>THR (Hip)</div>
+        <div class="card">💪<br>Shoulder Replacement</div>
+        <div class="card">🔭<br>Ortho Arthroscopy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
 <!-- CARDIAC O.T. PAGE -->
