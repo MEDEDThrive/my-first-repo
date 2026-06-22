@@ -64,7 +64,50 @@
     <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
-<!-- MEDICAL EQUIPMENT PAGE -->
+<!-- ORTHO O.T. MAIN PAGE -->
+<div id="orthoPage" class="page app-container">
+    <h1>Ortho O.T.</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('orthoFracture')">🛠️<br>Fracture & Trauma</div>
+        <div class="card" onclick="showPage('orthoJoint')">⚙️<br>Joint Replacement</div>
+        <div class="card" onclick="showPage('orthoScopy')">🔭<br>Ortho Scopy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
+</div>
+
+<!-- ORTHO NESTED PAGES -->
+<div id="orthoFracture" class="page app-container">
+    <h1>Fracture & Trauma</h1>
+    <div class="grid">
+        <div class="card">🔩<br>ORIF</div>
+        <div class="card">🔗<br>External Fixation</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
+</div>
+
+<div id="orthoJoint" class="page app-container">
+    <h1>Joint Replacement</h1>
+    <div class="grid">
+        <div class="card">🦵<br>TKR</div>
+        <div class="card">🦴<br>THR</div>
+        <div class="card">💪<br>Shoulder Replacement</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
+</div>
+
+<div id="orthoScopy" class="page app-container">
+    <h1>Ortho Scopy</h1>
+    <div class="grid">
+        <div class="card">🔭<br>ACL</div>
+        <div class="card">🔭<br>PCL</div>
+        <div class="card">🔭<br>MCL</div>
+        <div class="card">🔭<br>MR</div>
+        <div class="card">🔭<br>RCR</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
+</div>
+
+<!-- OTHER PAGES REMAIN UNCHANGED -->
 <div id="equipmentPage" class="page app-container">
     <h1>Medical Equipment</h1>
     <div class="grid">
@@ -76,7 +119,6 @@
     <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
-<!-- NEURO O.T. PAGE (from 146830.jpg) -->
 <div id="neuroPage" class="page app-container">
     <h1>Neuro O.T.</h1>
     <div class="grid">
@@ -93,21 +135,6 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
-<!-- ORTHO O.T. PAGE (from 146827.jpg) -->
-<div id="orthoPage" class="page app-container">
-    <h1>Ortho O.T.</h1>
-    <div class="grid">
-        <div class="card">🛠️<br>ORIF</div>
-        <div class="card">🔩<br>External Fixation</div>
-        <div class="card">🦵<br>Total Knee Replacement</div>
-        <div class="card">🦴<br>THR (Hip)</div>
-        <div class="card">💪<br>Shoulder Replacement</div>
-        <div class="card">🔭<br>Ortho Arthroscopy</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
-</div>
-
-<!-- CARDIAC O.T. PAGE -->
 <div id="cardiacPage" class="page app-container">
     <h1>Cardiac O.T.</h1>
     <div class="grid">
@@ -122,7 +149,6 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
-<!-- LAPARO O.T. PAGE -->
 <div id="laparoPage" class="page app-container">
     <h1>Laparo O.T.</h1>
     <div class="grid">
@@ -136,7 +162,6 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
-<!-- GYNAEC O.T. MAIN PAGE -->
 <div id="gynaecPage" class="page app-container">
     <h1>Gynaec O.T.</h1>
     <div class="grid">
@@ -149,7 +174,6 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
-<!-- GYNAEC NESTED PAGES -->
 <div id="gynSurgeries" class="page app-container">
     <h1>Surgeries</h1>
     <div class="grid">
