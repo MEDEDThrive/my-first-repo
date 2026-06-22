@@ -24,11 +24,11 @@
         .page { display: none; }
         .active-page { display: block; }
         .back-btn { margin-top: 25px; display: inline-block; padding: 10px 20px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; }
-        ul { text-align: left; padding-left: 20px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
+<!-- HOME PAGE -->
 <div id="homePage" class="page active-page app-container">
     <div class="header">
         <div class="logo-placeholder">M</div>
@@ -51,6 +51,7 @@
     </div>
 </div>
 
+<!-- SURGERY PAGE -->
 <div id="surgeryPage" class="page app-container">
     <h1>Surgical Procedures</h1>
     <div class="grid">
@@ -63,6 +64,7 @@
     <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
+<!-- ORTHO O.T. MAIN PAGE -->
 <div id="orthoPage" class="page app-container">
     <h1>Ortho O.T.</h1>
     <div class="grid">
@@ -73,6 +75,7 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
+<!-- ORTHO NESTED PAGES -->
 <div id="orthoFracture" class="page app-container">
     <h1>Fracture & Trauma</h1>
     <div class="grid">
@@ -104,6 +107,7 @@
     <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
 </div>
 
+<!-- EQUIPMENT PAGE -->
 <div id="equipmentPage" class="page app-container">
     <h1>Medical Equipment&CSSD</h1>
     <div class="grid">
@@ -125,9 +129,9 @@
     <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
+<!-- AUTOCLAVE PAGE (NEW UPDATE) -->
 <div id="autoclavePage" class="page app-container">
     <h1>AUTOCLAVE</h1>
-    
     <h3 style="margin-top:20px; color:#0284c7;">1. Vertical Autoclave</h3>
     <img src="vertical.jpg" alt="Vertical Autoclave" style="width:100%; border-radius:15px; margin: 10px 0; border: 1px solid #e2e8f0;">
     <div style="text-align: left; font-size: 14px; color: #334155;">
@@ -137,9 +141,7 @@
             <li>System: PID controller for temp & pressure.</li>
         </ul>
     </div>
-    
     <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0;">
-    
     <h3 style="color:#0284c7;">2. Horizontal Autoclave</h3>
     <img src="horizontal1.jpg" alt="Horizontal Autoclave Front" style="width:100%; border-radius:15px; margin: 10px 0; border: 1px solid #e2e8f0;">
     <img src="horizontal2.jpg" alt="Horizontal Autoclave Internal" style="width:100%; border-radius:15px; margin: 10px 0; border: 1px solid #e2e8f0;">
@@ -150,9 +152,10 @@
             <li>Mechanism: Radial locking system.</li>
         </ul>
     </div>
-    <a class="back-btn" onclick="showPage('sterilMachinePage')">Back to Machines</a>
+    <a class="back-btn" onclick="showPage('sterilMachinePage')">Back</a>
 </div>
 
+<!-- NEURO O.T. PAGE -->
 <div id="neuroPage" class="page app-container">
     <h1>Neuro O.T.</h1>
     <div class="grid">
@@ -169,6 +172,7 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
+<!-- CARDIAC O.T. PAGE -->
 <div id="cardiacPage" class="page app-container">
     <h1>Cardiac O.T.</h1>
     <div class="grid">
@@ -183,6 +187,7 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
+<!-- LAPARO O.T. PAGE -->
 <div id="laparoPage" class="page app-container">
     <h1>Laparo O.T.</h1>
     <div class="grid">
@@ -196,6 +201,7 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
+<!-- GYNAEC O.T. MAIN PAGE -->
 <div id="gynaecPage" class="page app-container">
     <h1>Gynaec O.T.</h1>
     <div class="grid">
@@ -208,6 +214,7 @@
     <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
+<!-- GYNAEC NESTED PAGES -->
 <div id="gynSurgeries" class="page app-container">
     <h1>Surgeries</h1>
     <div class="grid">
