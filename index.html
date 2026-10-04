@@ -1,568 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="b7KZlxhrV5V9NXyqBoL3OwPqBLDyyvBHQe2-wgheYbI" />
-    <title>MED ED THRIVE R.A. - Medical Portal</title>
-    <style>
-        :root {
-            --bg: #f1f5f9;
-            --card: #ffffff;
-            --text: #0f172a;
-            --sub: #64748b;
-            --primary: #0284c7;
-            --border: #e2e8f0;
-        }
-        .dark {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f1f5f9;
-            --sub: #94a3b8;
-            --primary: #38bdf8;
-            --border: #334155;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background: var(--bg); min-height: 100vh; display: flex; justify-content: center; padding: 16px; color: var(--text); transition: 0.3s; }
-        .app-container { width: 100%; max-width: 480px; background: var(--card); border-radius: 24px; padding: 24px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); border: 1px solid var(--border); text-align: center; margin: 0 auto; }
-        .header { margin-bottom: 24px; }
-        .logo-placeholder { width: 90px; height: 90px; background: linear-gradient(135deg, #7dd3fc, #0284c7); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 34px; color: white; font-weight: 700; }
-        h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
-        .subtitle { font-size: 13px; color: var(--sub); margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
-        .card { background: #f0f9ff; border: 1px solid #e0f2fe; padding: 16px 10px; border-radius: 16px; cursor: pointer; transition: 0.25s; font-size: 13px; font-weight: 600; color: var(--text); }
-        .dark .card { background: #1e3a5f; border-color: #334155; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
-        .btn-container { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
-        .btn { display: block; width: 100%; color: white; padding: 14px; border-radius: 14px; font-weight: 600; text-decoration: none; font-size: 15px; border: none; cursor: pointer; }
-        .btn-yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
-        .btn-insta { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
-        .btn-linkedin { background: #0077b5; }
-        .founder-section { margin-top: 28px; background: #f8fafc; border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; align-items: center; gap: 14px; text-align: left; }
-        .dark .founder-section { background: #1e293b; }
-        .founder-img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
-        .page { display: none; }
-        .active-page { display: block; }
-        .back-btn { margin-top: 22px; display: inline-block; padding: 10px 18px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; font-size: 14px; }
-        .details-box { text-align: left; font-size: 13px; color: var(--sub); padding: 14px; background: #f8fafc; border-radius: 14px; margin-top: 10px; line-height: 1.6; }
-        .dark .details-box { background: #1e293b; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 8px; }
-        .icon-btn { background: var(--border); border: none; width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-        .search-box { width: 100%; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-bottom: 14px; font-size: 14px; }
-        .chapter-card { text-align: left; padding: 14px; border-radius: 14px; background: #f0f9ff; border: 1px solid #e0f2fe; margin-bottom: 10px; cursor: pointer; }
-        .dark .chapter-card { background: #1e3a5f; border-color: #334155; }
-        .chapter-title { font-weight: 600; font-size: 14px; }
-        .chapter-meta { font-size: 12px; color: var(--sub); margin-top: 4px; }
-        .notes-area { text-align: left; padding: 16px; background: #f8fafc; border-radius: 14px; line-height: 1.7; font-size: 14px; margin-top: 12px; white-space: pre-wrap; }
-        .dark .notes-area { background: #1e293b; }
-        .admin-badge { background: #dc2626; color: white; font-size: 11px; padding: 3px 8px; border-radius: 20px; margin-left: 8px; }
-        .progress-bar { height: 6px; background: #e2e8f0; border-radius: 10px; margin-top: 8px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #22c55e; width: 0%; transition: 0.4s; }
-        .bookmark-btn { float: right; background: none; border: none; font-size: 18px; cursor: pointer; }
-        textarea.edit-notes { width: 100%; min-height: 180px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
-        .save-btn { background: #16a34a; color: white; border: none; padding: 10px 18px; border-radius: 10px; margin-top: 10px; cursor: pointer; font-weight: 600; }
-        .hidden { display: none !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="b7KZlxhrV5V9NXyqBoL3OwPqBLDyyvBHQe2-wgheYbI" />
+<title>MED ED THRIVE R.A. - Medical Portal</title>
+<style>
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --sub: #64748b;
+  --primary: #0284c7;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --success: #16a34a;
+  --danger: #dc2626;
+}
+.dark {
+  --bg: #0b1220;
+  --card: #111827;
+  --text: #f1f5f9;
+  --sub: #94a3b8;
+  --primary: #38bdf8;
+  --border: #1f2937;
+  --accent: #0ea5e9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  border: 1px solid var(--border);
+  text-align: center;
+  margin: 0 auto;
+}
+.header { margin-bottom: 22px; }
+.logo-placeholder {
+  width: 88px; height: 88px;
+  background: linear-gradient(135deg, #7dd3fc, #0284c7);
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: white; font-weight: 700;
+}
+h1 { font-size: 21px; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+.subtitle { font-size: 13px; color: var(--sub); margin-bottom: 18px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.card {
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  padding: 15px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.22s;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.dark .card { background: #1e293b; border-color: #334155; }
+.card:active { transform: scale(0.97); }
+.btn-container { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.btn {
+  display: block; width: 100%;
+  color: white; padding: 13px;
+  border-radius: 14px; font-weight: 600;
+  text-decoration: none; font-size: 15px; border: none; cursor: pointer;
+}
+.btn-yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
+.btn-insta { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+.btn-linkedin { background: #0077b5; }
+.founder-section {
+  margin-top: 26px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex; align-items: center; gap: 12px;
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.dark .founder-section { background: #1e293b; }
+.founder-img {
+  width: 54px; height: 54px;
+  border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--primary);
+}
+.page { display: none; }
+.active-page { display: block; }
+.back-btn {
+  margin-top: 20px; display: inline-block;
+  padding: 9px 16px; background: #64748b; color: white;
+  border-radius: 10px; cursor: pointer; text-decoration: none; font-size: 13px;
+}
+.details-box {
+  text-align: left; font-size: 13px; color: var(--sub);
+  padding: 13px; background: #f8fafc; border-radius: 14px;
+  margin-top: 10px; line-height: 1.65;
+}
+.dark .details-box { background: #1e293b; }
+.top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; gap: 8px;
+}
+.icon-btn {
+  background: var(--border); border: none;
+  width: 36px; height: 36px; border-radius: 10px;
+  cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+.search-box {
+  width: 100%; padding: 11px 14px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); margin-bottom: 12px; font-size: 14px;
+}
+.chapter-card {
+  text-align: left; padding: 13px; border-radius: 14px;
+  background: #f0f9ff; border: 1px solid #e0f2fe;
+  margin-bottom: 9px; cursor: pointer;
+}
+.dark .chapter-card { background: #1e293b; border-color: #334155; }
+.chapter-title { font-weight: 600; font-size: 13.5px; }
+.chapter-meta { font-size: 11.5px; color: var(--sub); margin-top: 3px; }
+.notes-area {
+  text-align: left; padding: 15px; background: #f8fafc;
+  border-radius: 14px; line-height: 1.7; font-size: 14px;
+  margin-top: 10px; white-space: pre-wrap;
+}
+.dark .notes-area { background: #1e293b; }
+.admin-panel {
+  background: #fef2f2; border: 1px solid #fecaca;
+  border-radius: 14px; padding: 12px; margin-top: 12px; text-align: left;
+}
+.dark .admin-panel { background: #3f1a1a; border-color: #7f1d1d; }
+.admin-panel h4 { font-size: 13px; margin-bottom: 8px; color: var(--danger); }
+textarea.edit-notes {
+  width: 100%; min-height: 140px; padding: 11px;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); font-size: 13.5px; line-height: 1.55;
+}
+.save-btn {
+  background: var(--success); color: white; border: none;
+  padding: 9px 16px; border-radius: 9px; margin-top: 8px;
+  cursor: pointer; font-weight: 600; font-size: 13px;
+}
+.hidden { display: none !important; }
+.small-text { font-size: 12px; color: var(--sub); }
+.badge {
+  display: inline-block; background: var(--primary); color: white;
+  font-size: 10px; padding: 2px 7px; border-radius: 20px; margin-left: 6px;
+}
+.link-btn {
+  display: inline-block; margin-top: 8px; padding: 7px 12px;
+  background: #0ea5e9; color: white; border-radius: 8px;
+  font-size: 12px; text-decoration: none;
+}
+</style>
 </head>
 <body>
 
-<!-- ===================== HOME PAGE ===================== -->
+<!-- ===================== HOME ===================== -->
 <div id="homePage" class="page active-page app-container">
-    <div class="top-bar">
-        <div></div>
-        <div>
-            <button class="icon-btn" onclick="toggleDark()">🌓</button>
-            <button class="icon-btn" onclick="openAdmin()" title="Admin">🔐</button>
-        </div>
+  <div class="top-bar">
+    <div></div>
+    <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">🌓</button>
+  </div>
+  <div class="header">
+    <div class="logo-placeholder">M</div>
+    <h1>MED ED THRIVE R.A.</h1>
+    <p class="subtitle">Your Digital Guide to Medical Education</p>
+  </div>
+  <div class="grid">
+    <div class="card" onclick="showPage('surgeryPage')">🩺<br>Surgical Procedures</div>
+    <div class="card" onclick="showPage('equipmentPage')">🔬<br>Medical Equipment & CSSD</div>
+    <div class="card" onclick="showPage('educationPage')">📚<br>Education Library</div>
+    <div class="card" onclick="showPage('patientCarePage')">👨‍⚕️<br>Patient Care</div>
+  </div>
+  <div class="btn-container">
+    <a href="https://youtube.com/@mededthrive123?si=s-fRRPefmNA4gLVV" class="btn btn-yt" target="_blank">Subscribe on YouTube</a>
+    <a href="https://www.instagram.com/__raj__malviya?igsh=MTBjYXdiNDR1emFseQ==" class="btn btn-insta" target="_blank">Follow on Instagram</a>
+    <a href="https://www.linkedin.com/in/raj-malviya" class="btn btn-linkedin" target="_blank">Follow on LinkedIn</a>
+  </div>
+
+  <!-- Founder - 5 tap for Admin -->
+  <div class="founder-section" id="founderTap" onclick="handleFounderTap()">
+    <img src="1779078968163.jpg" alt="Raj Malviya" class="founder-img" onerror="this.src='https://via.placeholder.com/54'">
+    <div>
+      <h3 style="font-size:15px;">Raj Malviya</h3>
+      <p class="small-text">Founder & Creator</p>
     </div>
-    <div class="header">
-        <div class="logo-placeholder">M</div>
-        <h1>MED ED THRIVE R.A.</h1>
-        <p class="subtitle">Your Digital Guide to Medical Education</p>
-    </div>
-    <div class="grid">
-        <div class="card" onclick="showPage('surgeryPage')">🩺<br>Surgical Procedures</div>
-        <div class="card" onclick="showPage('equipmentPage')">🔬<br>Medical Equipment & CSSD</div>
-        <div class="card" onclick="showPage('educationPage')">📚<br>Education Library</div>
-        <div class="card" onclick="showPage('patientCarePage')">👨‍⚕️<br>Patient Care</div>
-    </div>
-    <div class="btn-container">
-        <a href="https://youtube.com/@mededthrive123?si=s-fRRPefmNA4gLVV" class="btn btn-yt" target="_blank">Subscribe on YouTube</a>
-        <a href="https://www.instagram.com/__raj__malviya?igsh=MTBjYXdiNDR1emFseQ==" class="btn btn-insta" target="_blank">Follow on Instagram</a>
-        <a href="https://www.linkedin.com/in/raj-malviya" class="btn btn-linkedin" target="_blank">Follow on LinkedIn</a>
-    </div>
-    <div class="founder-section">
-        <img src="1779078968163.jpg" alt="Raj Malviya" class="founder-img" onerror="this.style.display='none'">
-        <div>
-            <h3>Raj Malviya</h3>
-            <p style="font-size:13px;color:var(--sub)">Founder & Creator</p>
-        </div>
-    </div>
+  </div>
+  <p id="adminHint" class="small-text hidden" style="margin-top:8px;">🔐 Admin Mode Active</p>
 </div>
 
-<!-- ===================== SURGERY SECTION (Original cleaned) ===================== -->
+<!-- ===================== SURGERY ===================== -->
 <div id="surgeryPage" class="page app-container">
-    <h1>Surgical Procedures</h1>
-    <div class="grid">
-        <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
-        <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
-        <div class="card" onclick="showPage('gynaecPage')">🤰<br>Gynaec O.T.</div>
-        <div class="card" onclick="showPage('neuroPage')">🧠<br>Neuro O.T.</div>
-        <div class="card" onclick="showPage('orthoPage')">🦴<br>Ortho O.T.</div>
-    </div>
-    <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+  <h1>Surgical Procedures</h1>
+  <div class="grid">
+    <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
+    <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
+    <div class="card" onclick="showPage('gynaecPage')">🤰<br>Gynaec O.T.</div>
+    <div class="card" onclick="showPage('neuroPage')">🧠<br>Neuro O.T.</div>
+    <div class="card" onclick="showPage('orthoPage')">🦴<br>Ortho O.T.</div>
+  </div>
+  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
 </div>
 
 <div id="orthoPage" class="page app-container">
-    <h1>Ortho O.T.</h1>
-    <div class="grid">
-        <div class="card" onclick="showPage('orthoFracture')">🛠️<br>Fracture & Trauma</div>
-        <div class="card" onclick="showPage('orthoJoint')">⚙️<br>Joint Replacement</div>
-        <div class="card" onclick="showPage('orthoScopy')">🔭<br>Ortho Scopy</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+  <h1>Ortho O.T.</h1>
+  <div class="grid">
+    <div class="card" onclick="showPage('orthoFracture')">🛠️<br>Fracture & Trauma</div>
+    <div class="card" onclick="showPage('orthoJoint')">⚙️<br>Joint Replacement</div>
+    <div class="card" onclick="showPage('orthoScopy')">🔭<br>Ortho Scopy</div>
+  </div>
+  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
 </div>
 
 <div id="orthoFracture" class="page app-container">
-    <h1>Fracture & Trauma</h1>
-    <div class="grid">
-        <div class="card">🔩<br>ORIF</div>
-        <div class="card">🔗<br>External Fixation</div>
-    </div>
-    <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+  <h1>Fracture & Trauma</h1>
+  <div class="grid">
+    <div class="card">🔩<br>ORIF</div>
+    <div class="card">🔗<br>External Fixation</div>
+  </div>
+  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
 </div>
 
 <div id="orthoJoint" class="page app-container">
-    <h1>Joint Replacement</h1>
-    <div class="grid">
-        <div class="card">🦵<br>TKR</div>
-        <div class="card">🦴<br>THR</div>
-        <div class="card">💪<br>Shoulder Replacement</div>
-    </div>
-    <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+  <h1>Joint Replacement</h1>
+  <div class="grid">
+    <div class="card">🦵<br>TKR</div>
+    <div class="card">🦴<br>THR</div>
+    <div class="card">💪<br>Shoulder Replacement</div>
+  </div>
+  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
 </div>
 
 <div id="orthoScopy" class="page app-container">
-    <h1>Ortho Scopy</h1>
-    <div class="grid">
-        <div class="card">🔭 ACL</div>
-        <div class="card">🔭 PCL</div>
-        <div class="card">🔭 MCL</div>
-        <div class="card">🔭 MR</div>
-        <div class="card">🔭 RCR</div>
-    </div>
-    <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+  <h1>Ortho Scopy</h1>
+  <div class="grid">
+    <div class="card">🔭 ACL</div>
+    <div class="card">🔭 PCL</div>
+    <div class="card">🔭 MCL</div>
+    <div class="card">🔭 MR</div>
+    <div class="card">🔭 RCR</div>
+  </div>
+  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
 </div>
 
 <div id="cardiacPage" class="page app-container">
-    <h1>Cardiac O.T.</h1>
-    <div class="grid">
-        <div class="card">🫀 CABG</div>
-        <div class="card">🫀 H.V.S</div>
-        <div class="card">🫀 C.H.D</div>
-        <div class="card">🫀 C.D.I</div>
-        <div class="card">🫀 Aneurysm Repair</div>
-        <div class="card">🫀 Heart Transplant</div>
-        <div class="card">🫀 M.I.H.S</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+  <h1>Cardiac O.T.</h1>
+  <div class="grid">
+    <div class="card">🫀 CABG</div>
+    <div class="card">🫀 H.V.S</div>
+    <div class="card">🫀 C.H.D</div>
+    <div class="card">🫀 C.D.I</div>
+    <div class="card">🫀 Aneurysm Repair</div>
+    <div class="card">🫀 Heart Transplant</div>
+    <div class="card">🫀 M.I.H.S</div>
+  </div>
+  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
 </div>
 
 <div id="laparoPage" class="page app-container">
-    <h1>Laparo O.T.</h1>
-    <div class="grid">
-        <div class="card">📷 Cholecystectomy</div>
-        <div class="card">🔭 Appendectomy</div>
-        <div class="card">🏥 Hernia Repair</div>
-        <div class="card">👩‍⚕️ Gynaecology</div>
-        <div class="card">⚖️ Bariatric Surgery</div>
-        <div class="card">🎗️ Colorectal & Oncology</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+  <h1>Laparo O.T.</h1>
+  <div class="grid">
+    <div class="card">📷 Cholecystectomy</div>
+    <div class="card">🔭 Appendectomy</div>
+    <div class="card">🏥 Hernia Repair</div>
+    <div class="card">👩‍⚕️ Gynaecology</div>
+    <div class="card">⚖️ Bariatric Surgery</div>
+    <div class="card">🎗️ Colorectal & Oncology</div>
+  </div>
+  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
 </div>
 
 <div id="gynaecPage" class="page app-container">
-    <h1>Gynaec O.T.</h1>
-    <div class="grid">
-        <div class="card" onclick="showPage('gynSurgeries')">🏥 Surgeries</div>
-        <div class="card" onclick="showPage('gynSectionC')">🤰 Section-C</div>
-        <div class="card" onclick="showPage('gynMinor')">🩺 Minor Procedures</div>
-        <div class="card" onclick="showPage('gynTubal')">🔗 Tubal Surgery</div>
-        <div class="card">🎗️ Myomectomy</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+  <h1>Gynaec O.T.</h1>
+  <div class="grid">
+    <div class="card" onclick="showPage('gynSurgeries')">🏥 Surgeries</div>
+    <div class="card" onclick="showPage('gynSectionC')">🤰 Section-C</div>
+    <div class="card" onclick="showPage('gynMinor')">🩺 Minor Procedures</div>
+    <div class="card" onclick="showPage('gynTubal')">🔗 Tubal Surgery</div>
+    <div class="card">🎗️ Myomectomy</div>
+  </div>
+  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
 </div>
 
 <div id="gynSurgeries" class="page app-container">
-    <h1>Surgeries</h1>
-    <div class="grid">
-        <div class="card">🩹 Pelvic Repair</div>
-        <div class="card">🏥 Hysterectomy</div>
-        <div class="card">🏥 Abdominal Hyst.</div>
-        <div class="card">🔭 Laparoscopy Hyst.</div>
-        <div class="card">🏥 Vaginal Hyst.</div>
-    </div>
-    <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+  <h1>Surgeries</h1>
+  <div class="grid">
+    <div class="card">🩹 Pelvic Repair</div>
+    <div class="card">🏥 Hysterectomy</div>
+    <div class="card">🏥 Abdominal Hyst.</div>
+    <div class="card">🔭 Laparoscopy Hyst.</div>
+    <div class="card">🏥 Vaginal Hyst.</div>
+  </div>
+  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
 </div>
 
 <div id="gynSectionC" class="page app-container">
-    <h1>Section-C</h1>
-    <div class="grid">
-        <div class="card">👶 LSCS</div>
-        <div class="card">🤰 C-Section (OC)</div>
-    </div>
-    <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+  <h1>Section-C</h1>
+  <div class="grid">
+    <div class="card">👶 LSCS</div>
+    <div class="card">🤰 C-Section (OC)</div>
+  </div>
+  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
 </div>
 
 <div id="gynMinor" class="page app-container">
-    <h1>Minor Procedures</h1>
-    <div class="grid">
-        <div class="card">🩺 D&C</div>
-        <div class="card">🔭 Hysteroscopy</div>
-    </div>
-    <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+  <h1>Minor Procedures</h1>
+  <div class="grid">
+    <div class="card">🩺 D&C</div>
+    <div class="card">🔭 Hysteroscopy</div>
+  </div>
+  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
 </div>
 
 <div id="gynTubal" class="page app-container">
-    <h1>Tubal Surgery</h1>
-    <div class="grid">
-        <div class="card">🔗 Tubal Ligation</div>
-        <div class="card">⚠️ Ectopic Pregnancy</div>
-        <div class="card">🔄 Tubal Recanalization</div>
-    </div>
-    <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+  <h1>Tubal Surgery</h1>
+  <div class="grid">
+    <div class="card">🔗 Tubal Ligation</div>
+    <div class="card">⚠️ Ectopic Pregnancy</div>
+    <div class="card">🔄 Tubal Recanalization</div>
+  </div>
+  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
 </div>
 
 <div id="neuroPage" class="page app-container">
-    <h1>Neuro O.T.</h1>
-    <div class="grid">
-        <div class="card">🧠 Brain Tumor Resection</div>
-        <div class="card">⚡ Aneurysm Clipping</div>
-        <div class="card">🩸 Trauma & Hematoma</div>
-        <div class="card">⚙️ VP Shunt</div>
-        <div class="card">⚡ DBS</div>
-        <div class="card">🔪 Microdiscectomy</div>
-        <div class="card">🏥 Laminectomy</div>
-        <div class="card">🔗 Spinal Fusion</div>
-        <div class="card">🩻 Spinal Tumor Excision</div>
-    </div>
-    <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+  <h1>Neuro O.T.</h1>
+  <div class="grid">
+    <div class="card">🧠 Brain Tumor Resection</div>
+    <div class="card">⚡ Aneurysm Clipping</div>
+    <div class="card">🩸 Trauma & Hematoma</div>
+    <div class="card">⚙️ VP Shunt</div>
+    <div class="card">⚡ DBS</div>
+    <div class="card">🔪 Microdiscectomy</div>
+    <div class="card">🏥 Laminectomy</div>
+    <div class="card">🔗 Spinal Fusion</div>
+    <div class="card">🩻 Spinal Tumor Excision</div>
+  </div>
+  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
 </div>
 
-<!-- ===================== EQUIPMENT & CSSD (Cleaned) ===================== -->
+<!-- ===================== EQUIPMENT & CSSD ===================== -->
 <div id="equipmentPage" class="page app-container">
-    <h1>Medical Equipment & CSSD</h1>
-    <div class="grid">
-        <div class="card" onclick="showPage('sterilMachinePage')">✨ Sterilization Machines</div>
-        <div class="card" onclick="showPage('storeLobbyPage')">🏬 Store Lobby</div>
-        <div class="card" onclick="showPage('washingAreaPage')">🧽 Washing Area</div>
-        <div class="card" onclick="showPage('sterilizationZonePage')">⚙️ Sterilization Zone</div>
-        <div class="card" onclick="showPage('inchargePage')">🥸 CSSD Incharge</div>
-    </div>
-    <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+  <h1>Medical Equipment & CSSD</h1>
+  <div class="grid">
+    <div class="card" onclick="showPage('sterilMachinePage')">✨<br>Sterilization Machines</div>
+    <div class="card" onclick="showPage('storeLobbyPage')">🏬<br>Store Lobby</div>
+    <div class="card" onclick="showPage('washingAreaPage')">🧽<br>Washing Area</div>
+    <div class="card" onclick="showPage('sterilizationZonePage')">⚙️<br>Sterilization Zone</div>
+    <div class="card" onclick="showPage('inchargePage')">🥸<br>CSSD Incharge</div>
+  </div>
+  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
 </div>
 
 <div id="sterilMachinePage" class="page app-container">
-    <h1>Sterilization Machines</h1>
-    <div class="grid">
-        <div class="card" onclick="showPage('autoclavePage')">🌡️ Autoclave</div>
-        <div class="card" onclick="showPage('etoPage')">🧪 ETO</div>
-        <div class="card" onclick="showPage('ultrasonicPage')">🔊 Ultrasonic</div>
-    </div>
-    <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+  <h1>Sterilization Machines</h1>
+  <div class="grid">
+    <div class="card" onclick="showPage('autoclavePage')">🌡️<br>Autoclave</div>
+    <div class="card" onclick="showPage('etoPage')">🧪<br>ETO</div>
+    <div class="card" onclick="showPage('ultrasonicPage')">🔊<br>Ultrasonic</div>
+  </div>
+  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
 </div>
 
 <div id="autoclavePage" class="page app-container">
-    <h1>Autoclave</h1>
-    <h3 style="margin-top:16px;color:var(--primary)">1. Vertical Autoclave</h3>
-    <img src="IMG20260622225042.jpg" alt="Vertical Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-    <div class="details-box">
-        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
-        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
-        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media and instruments.
-    </div>
+  <h1>Autoclave</h1>
 
-    <h3 style="margin-top:22px;color:var(--primary)">2. Horizontal Autoclave</h3>
-    <img src="IMG20260622205750.jpg" alt="Horizontal Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-    <div class="details-box">
-        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
-        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
-        <b>Key Features:</b> Front-loading rectangular chamber, High capacity, Faster drying cycle.
-    </div>
-    <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+  <h3 style="margin-top:16px;color:var(--primary);font-size:15px;">1. Vertical Autoclave</h3>
+  <img src="IMG20260622225042.jpg" alt="Vertical Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+    <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+    <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media. Primary Function: The main purpose of this machine is sterilization. It uses high-pressure steam to effectively eliminate bacteria, viruses, fungi, and spores from medical instruments, laboratory glassware, and other materials.
+  </div>
+
+  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">2. Horizontal Autoclave</h3>
+  <img src="IMG20260622205750.jpg" alt="Horizontal Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+    <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+    <b>Key Features:</b> Front-loading rectangular chamber, High capacity for bulk sets, Faster drying cycle.
+  </div>
+
+  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">3. Sterile Dilator Set</h3>
+  <img src="IMG20260622203212.jpg" alt="Sterile Dilator Set" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    Indicator Tape ka kaam: Ye tape sterilization ke dauran heat aur pressure ke sampark mein aane par apna rang badal leti hai. Ye is baat ka proof hota hai ki instruments ke set ko sahi tareeke se autoclave process se gujara gaya hai.<br>
+    Surgical instruments ko pehle ek saaf kapde mein wrap kiya jata hai taaki sterilization ke baad wo contamination se safe rahein.
+  </div>
+
+  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">4. Autoclave Trolley</h3>
+  <img src="IMG20260622203225.jpg" alt="Autoclave Trolley" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    This trolley is specifically designed for use with horizontal autoclave machines. Wrapped instrument sets are placed onto this trolley, which is then slid into the horizontal chamber of the autoclave for the sterilization process. Constructed from stainless steel with perforated trays for proper steam circulation.
+  </div>
+
+  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">5. Sterilization Process</h3>
+  <img src="IMG20260622203241.jpg" alt="Sterilization Process" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    Cleaning and Drying → Packaging → Labeling with indicator tape → Loading on trolley → Autoclave Cycle (pre-vacuum steam) → Fast drying cycle. This ensures instruments meet hospital infection control standards.
+  </div>
+
+  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
 </div>
 
 <div id="etoPage" class="page app-container">
-    <h1>ETO Sterilizer</h1>
-    <img src="IMG20260623081439.jpg" alt="ETO Machine" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-    <div class="details-box">
-        <b>Usage:</b> Heat & moisture sensitive instruments (plastic, rubber, electronics).<br>
-        <b>Mechanism:</b> Ethylene Oxide gas sterilization.<br>
-        <b>Key Point:</b> Used when autoclave (steam) cannot be used.
-    </div>
-    <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+  <h1>ETO Sterilizer</h1>
+  <img src="IMG20260623081439.jpg" alt="ETO Machine" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    <b>Usage:</b> Heat & moisture sensitive instruments (plastic, rubber, electronics).<br>
+    <b>Mechanism:</b> Ethylene Oxide gas sterilization (not steam).<br>
+    <b>Key Point:</b> Used when autoclave cannot be used because high heat/moisture would damage the item.
+  </div>
+  <h3 style="margin-top:16px;color:var(--primary);font-size:15px;">Packaging for ETO</h3>
+  <img src="IMG20260622205940.jpg" alt="ETO Packaging" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    Dual-layer medical pouches (plastic + breathable paper) allow ETO gas to penetrate while maintaining sterile barrier after process.
+  </div>
+  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
 </div>
 
 <div id="ultrasonicPage" class="page app-container">
-    <h1>Ultrasonic Cleaner</h1>
-    <img src="IMG20260622224715.jpg" alt="Ultrasonic" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-    <div class="details-box">
-        <b>Function:</b> Deep cleaning of instruments using ultrasonic waves before sterilization.<br>
-        <b>Important:</b> Never operate without water.
-    </div>
-    <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+  <h1>Ultrasonic Cleaner</h1>
+  <img src="IMG20260622224715.jpg" alt="Ultrasonic" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    <b>Function:</b> Deep cleaning of instruments using ultrasonic waves before sterilization.<br>
+    <b>Important:</b> Never operate without water. Controls include power, ultrasonic on/off, heater and digital timer.
+  </div>
+  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
 </div>
 
 <div id="storeLobbyPage" class="page app-container">
-    <h1>Store Lobby</h1>
-    <div class="details-box">Sterile storage area for processed instrument sets. Maintain proper temperature, humidity and first-in-first-out system.</div>
-    <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+  <h1>Store Lobby</h1>
+  <div class="details-box">
+    Sterile storage area for processed instrument sets. Maintain proper temperature, humidity and First-In-First-Out (FIFO) system. Only authorized staff should enter.
+  </div>
+  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
 </div>
 
 <div id="washingAreaPage" class="page app-container">
-    <h1>Washing Area</h1>
-    <div class="details-box">Area for manual + ultrasonic cleaning of used instruments. Strict separation of dirty and clean zones is mandatory.</div>
-    <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+  <h1>Washing Area</h1>
+  <div class="details-box">
+    Area for manual + ultrasonic cleaning of used instruments. Strict separation of dirty and clean zones is mandatory to prevent cross-contamination.
+  </div>
+  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
 </div>
 
 <div id="sterilizationZonePage" class="page app-container">
-    <h1>Sterilization Zone</h1>
-    <div class="details-box">Controlled area where autoclaves, ETO and other sterilizers are operated. Only trained staff allowed.</div>
-    <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+  <h1>Sterilization Zone</h1>
+  <div class="details-box">
+    Controlled area where autoclaves, ETO and other sterilizers are operated. Only trained CSSD staff allowed. Proper PPE and monitoring of cycles is essential.
+  </div>
+  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
 </div>
 
 <div id="inchargePage" class="page app-container">
-    <h1>CSSD Incharge</h1>
-    <img src="IMG_20260623_164436.png" alt="Mr. Rajesh Parihar" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-    <div class="details-box">
-        <b>Mr. Rajesh Parihar</b><br>
-        In-charge, CSSD, Krishna Hospital<br><br>
-        15 years of dedicated service in sterile processing and patient safety. Recognized for technical expertise and commitment to highest sterilization standards.
-    </div>
-    <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+  <h1>CSSD Incharge</h1>
+  <img src="IMG_20260623_164436.png" alt="Mr. Rajesh Parihar" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
+  <div class="details-box">
+    <b>Mr. Rajesh Parihar</b><br>
+    In-charge, CSSD, Krishna Hospital<br><br>
+    15 years of dedicated service in sterile processing and patient safety. Recognized for technical expertise and unwavering commitment to the highest sterilization standards.
+  </div>
+  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
 </div>
 
 <!-- ===================== EDUCATION LIBRARY ===================== -->
 <div id="educationPage" class="page app-container">
-    <div class="top-bar">
-        <h1 style="margin:0;font-size:20px;">Education Library</h1>
-        <button class="icon-btn" onclick="toggleDark()">🌓</button>
-    </div>
-    <input type="text" class="search-box" id="eduSearch" placeholder="Search course, subject..." oninput="filterCourses()">
-    <div class="grid" id="courseGrid">
-        <div class="card" onclick="openCourse('gnm')">📘 GNM</div>
-        <div class="card" onclick="openCourse('ot')">🔧 OT Technician</div>
-        <div class="card" onclick="openCourse('pbsc')">📗 PB B.Sc Nursing</div>
-        <div class="card" onclick="openCourse('bsc')">📕 B.Sc Nursing</div>
-    </div>
-    <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+  <div class="top-bar">
+    <h1 style="margin:0;font-size:19px;">Education Library</h1>
+    <button class="icon-btn" onclick="toggleDark()">🌓</button>
+  </div>
+  <div class="grid">
+    <div class="card" onclick="openCourse('gnm')">📘<br>GNM</div>
+    <div class="card" onclick="openCourse('ot')">🔧<br>OT Technician</div>
+    <div class="card" onclick="openCourse('pbsc')">📗<br>PB B.Sc Nursing</div>
+    <div class="card" onclick="openCourse('bsc')">📕<br>B.Sc Nursing</div>
+  </div>
+  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
 </div>
 
-<!-- Dynamic pages for Education -->
+<!-- Dynamic Education Pages -->
 <div id="coursePage" class="page app-container">
-    <div class="top-bar">
-        <h1 id="courseTitle" style="margin:0;font-size:18px;"></h1>
-        <button class="icon-btn" onclick="toggleDark()">🌓</button>
-    </div>
-    <div id="yearGrid" class="grid"></div>
-    <a class="back-btn" onclick="showPage('educationPage')">← Back</a>
+  <div class="top-bar">
+    <h1 id="courseTitle" style="margin:0;font-size:17px;"></h1>
+    <button class="icon-btn" onclick="toggleDark()">🌓</button>
+  </div>
+  <div id="yearGrid" class="grid"></div>
+  <a class="back-btn" onclick="showPage('educationPage')">← Back</a>
 </div>
 
 <div id="yearPage" class="page app-container">
-    <div class="top-bar">
-        <h1 id="yearTitle" style="margin:0;font-size:18px;"></h1>
-        <button class="icon-btn" onclick="toggleDark()">🌓</button>
-    </div>
-    <div id="subjectGrid" class="grid"></div>
-    <a class="back-btn" id="yearBackBtn">← Back</a>
+  <div class="top-bar">
+    <h1 id="yearTitle" style="margin:0;font-size:16px;"></h1>
+    <button class="icon-btn" onclick="toggleDark()">🌓</button>
+  </div>
+  <div id="subjectGrid" class="grid"></div>
+  <a class="back-btn" id="yearBackBtn">← Back</a>
 </div>
 
 <div id="subjectPage" class="page app-container">
-    <div class="top-bar">
-        <h1 id="subjectTitle" style="margin:0;font-size:17px;"></h1>
-        <button class="icon-btn" onclick="toggleDark()">🌓</button>
-    </div>
-    <div id="chapterList"></div>
-    <a class="back-btn" id="subjectBackBtn">← Back</a>
+  <div class="top-bar">
+    <h1 id="subjectTitle" style="margin:0;font-size:15px;"></h1>
+    <button class="icon-btn" onclick="toggleDark()">🌓</button>
+  </div>
+  <div id="chapterList"></div>
+  <a class="back-btn" id="subjectBackBtn">← Back</a>
 </div>
 
 <div id="chapterPage" class="page app-container">
-    <div class="top-bar">
-        <h1 id="chapterTitle" style="margin:0;font-size:16px;"></h1>
-        <div>
-            <button class="icon-btn" onclick="toggleBookmark()" id="bookmarkBtn">☆</button>
-            <button class="icon-btn" onclick="toggleDark()">🌓</button>
-        </div>
+  <div class="top-bar">
+    <h1 id="chapterTitle" style="margin:0;font-size:14px;max-width:70%;"></h1>
+    <div>
+      <button class="icon-btn" onclick="toggleBookmark()" id="bookmarkBtn">☆</button>
+      <button class="icon-btn" onclick="toggleDark()">🌓</button>
     </div>
-    <div id="adminEditArea" class="hidden">
-        <textarea id="notesEditor" class="edit-notes"></textarea>
-        <button class="save-btn" onclick="saveNotes()">💾 Save Notes</button>
-    </div>
-    <div id="notesDisplay" class="notes-area"></div>
-    <div style="margin-top:16px;">
-        <button class="btn" style="background:#16a34a;" onclick="markComplete()">✅ Mark as Complete</button>
-    </div>
-    <a class="back-btn" id="chapterBackBtn">← Back</a>
+  </div>
+
+  <div id="notesDisplay" class="notes-area"></div>
+  <div id="fileLinks" style="margin-top:10px;"></div>
+
+  <!-- Admin only -->
+  <div id="adminEditArea" class="admin-panel hidden">
+    <h4>🔐 Admin Edit Panel</h4>
+    <label class="small-text">Notes / Important Points:</label>
+    <textarea id="notesEditor" class="edit-notes"></textarea>
+    <br>
+    <label class="small-text">PDF / File Link (Google Drive etc.):</label>
+    <input type="text" id="fileLinkInput" class="search-box" placeholder="https://drive.google.com/...">
+    <button class="save-btn" onclick="saveNotes()">💾 Save Notes & Link</button>
+  </div>
+
+  <div style="margin-top:14px;">
+    <button class="btn" style="background:var(--success);font-size:14px;" onclick="markComplete()">✅ Mark as Complete</button>
+  </div>
+  <a class="back-btn" id="chapterBackBtn">← Back</a>
 </div>
 
-<!-- ===================== PATIENT CARE (Placeholder) ===================== -->
+<!-- ===================== PATIENT CARE ===================== -->
 <div id="patientCarePage" class="page app-container">
-    <h1>Patient Care</h1>
-    <div class="details-box" style="text-align:center;padding:30px;">
-        This section is under development.<br>
-        Coming soon with important patient care protocols.
-    </div>
-    <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+  <h1>Patient Care</h1>
+  <div class="details-box" style="text-align:center;padding:28px;">
+    This section is under development.<br>
+    Coming soon with important patient care protocols & guidelines.
+  </div>
+  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
 </div>
 
 <script>
-// ===================== DATA =====================
+// ===================== DATA - GNM 1st Year Official =====================
 const educationData = {
-    gnm: {
-        name: "GNM",
-        years: {
-            "1st Year": {
-                "Anatomy & Physiology": {
-                    "Chapter 1: Introduction to Anatomy": "Definition, importance, anatomical terms, planes and positions of the body.",
-                    "Chapter 2: Skeletal System": "Bones, joints, cartilage. Classification of bones. Axial and appendicular skeleton.",
-                    "Chapter 3: Muscular System": "Types of muscles, structure of skeletal muscle, major muscles of the body.",
-                    "Chapter 4: Cardiovascular System": "Heart structure, blood vessels, circulation, blood composition."
-                },
-                "Microbiology": {
-                    "Chapter 1: Introduction to Microbiology": "History, scope, classification of microorganisms.",
-                    "Chapter 2: Bacteria": "Structure, classification, growth requirements, common pathogenic bacteria.",
-                    "Chapter 3: Sterilization & Disinfection": "Physical and chemical methods, hospital infection control."
-                },
-                "Fundamentals of Nursing": {
-                    "Chapter 1: Introduction to Nursing": "Definition, history, roles and responsibilities of a nurse.",
-                    "Chapter 2: Nursing Process": "Assessment, diagnosis, planning, implementation, evaluation.",
-                    "Chapter 3: Vital Signs": "Temperature, pulse, respiration, blood pressure – normal values and techniques."
-                },
-                "Psychology": {
-                    "Chapter 1: Introduction to Psychology": "Definition, scope and importance in nursing.",
-                    "Chapter 2: Personality & Mental Health": "Factors affecting personality, mental hygiene."
-                }
-            },
-            "2nd Year": {
-                "Medical Surgical Nursing": {
-                    "Chapter 1: Introduction to MSN": "Scope, concepts of health and illness.",
-                    "Chapter 2: Pre & Post Operative Care": "Preparation of patient, post-operative complications and nursing care.",
-                    "Chapter 3: Wound Care & Dressing": "Types of wounds, dressing techniques, aseptic principles."
-                },
-                "Mental Health Nursing": {
-                    "Chapter 1: Introduction to Mental Health": "Concepts, principles of mental health nursing.",
-                    "Chapter 2: Common Mental Disorders": "Anxiety, depression, schizophrenia – nursing management."
-                },
-                "Child Health Nursing": {
-                    "Chapter 1: Growth & Development": "Principles, milestones from newborn to adolescent.",
-                    "Chapter 2: Common Childhood Diseases": "Diarrhoea, ARI, malnutrition – nursing care."
-                }
-            },
-            "3rd Year": {
-                "Midwifery & Gynaecology": {
-                    "Chapter 1: Normal Pregnancy": "Antenatal care, physiological changes.",
-                    "Chapter 2: Normal Labour": "Stages of labour, nursing management.",
-                    "Chapter 3: Postnatal Care": "Care of mother and newborn."
-                },
-                "Community Health Nursing": {
-                    "Chapter 1: Introduction to CHN": "Concepts, principles, roles of community health nurse.",
-                    "Chapter 2: National Health Programmes": "Important national programmes related to health."
-                }
-            }
+  gnm: {
+    name: "GNM",
+    years: {
+      "1st Year": {
+        "Anatomy & Physiology (Ross & Wilson)": {
+          "Ch1: Introduction to Body Structure & Anatomical Terms": "Definition of anatomy and physiology. Anatomical position, planes, directions and common anatomical terms used in nursing.",
+          "Ch2: Cell Structure, Functions & Tissue Types": "Structure of cell, cell membrane, cytoplasm, nucleus. Types of tissues - epithelial, connective, muscular, nervous.",
+          "Ch3: Membranes and Glands": "Serous, mucous, synovial membranes. Exocrine and endocrine glands.",
+          "Ch4: Skeletal System - Types of Bones, Joints": "Classification of bones, structure of long bone, axial & appendicular skeleton, types of joints and movements.",
+          "Ch5: Muscular System - Muscles of Body": "Types of muscles, structure of skeletal muscle, major muscles of head, neck, trunk and limbs.",
+          "Ch6: Blood - Composition, Functions, Blood Groups, Clotting": "Composition of blood, RBC, WBC, platelets, blood groups, Rh factor, coagulation process.",
+          "Ch7: Circulatory System - Heart Structure, Cardiac Cycle, Vessels": "Structure of heart, chambers, valves, cardiac cycle, blood vessels, systemic and pulmonary circulation.",
+          "Ch8: Lymphatic System - Lymph Nodes, Spleen": "Lymph, lymphatic vessels, lymph nodes, spleen, tonsils and their functions.",
+          "Ch9: Respiratory System - Lungs, Mechanism of Breathing": "Nose, pharynx, larynx, trachea, bronchi, lungs. Mechanism of inspiration and expiration.",
+          "Ch10: Digestive System - Alimentary Canal, Liver, Pancreas": "Mouth to large intestine, liver, gall bladder, pancreas and their functions.",
+          "Ch11: Excretory System - Kidney, Nephron, Urine Formation": "Structure of kidney, nephron, process of urine formation, ureters, bladder, urethra.",
+          "Ch12: Endocrine System - Pituitary, Thyroid, Adrenal, Pancreas": "Major endocrine glands and hormones secreted by them and their functions.",
+          "Ch13: Reproductive System - Male & Female": "Male and female reproductive organs, gametogenesis, menstrual cycle.",
+          "Ch14: Nervous System - Brain, Spinal Cord, Autonomic": "Central and peripheral nervous system, brain parts, spinal cord, autonomic nervous system.",
+          "Ch15: Sense Organs - Eye, Ear, Nose, Skin, Tongue": "Structure and function of eye, ear, nose, tongue and skin as sense organs."
+        },
+        "Microbiology (C.P. Baveja)": {
+          "Ch1: History & Introduction to Microbiology": "History of microbiology, scope and importance in nursing.",
+          "Ch2: Classification & Morphology of Microorganisms": "Bacteria, viruses, fungi, parasites - basic classification and morphology.",
+          "Ch3: Growth, Nutrition & Multiplication of Bacteria": "Bacterial growth curve, nutritional requirements, reproduction.",
+          "Ch4: Infection - Definition, Types, Sources, Transmission": "Definition of infection, types, sources, modes of transmission.",
+          "Ch5: Immunity - Natural & Acquired, Vaccines": "Innate and acquired immunity, vaccines and immunization schedule.",
+          "Ch6: Hypersensitivity & Autoimmunity": "Types of hypersensitivity reactions and autoimmune diseases.",
+          "Ch7: Control of Microbes - Sterilization, Disinfection, Autoclave": "Physical and chemical methods of sterilization and disinfection. Autoclave in detail.",
+          "Ch8: Chemotherapy & Antibiotics": "Common antibiotics, mode of action, resistance.",
+          "Ch9: Collection & Handling of Specimens": "Proper collection, labeling and transport of clinical specimens.",
+          "Ch10: Common Pathogenic Bacteria, Viruses, Fungi, Parasites": "Important pathogens causing common infections in hospital and community."
+        },
+        "Psychology (S.K. Mangal)": {
+          "Ch1: Definition, Scope & Methods of Psychology": "Definition, scope and methods used in psychology relevant to nursing.",
+          "Ch2: Structure of Mind - Id, Ego, Superego, Conscious": "Freud's structure of mind - Id, Ego, Superego and levels of consciousness.",
+          "Ch3: Psychology of Human Behaviour - Motives, Emotions": "Motives, emotions and their influence on behaviour.",
+          "Ch4: Learning - Definition, Types, Theories, Laws": "Types of learning, theories and laws of learning.",
+          "Ch5: Memory - Types, Factors Affecting, Forgetting": "Types of memory, factors affecting memory and causes of forgetting.",
+          "Ch6: Thinking, Reasoning & Problem Solving": "Types of thinking, reasoning and steps in problem solving.",
+          "Ch7: Observation & Perception": "Process of observation and perception, factors affecting them.",
+          "Ch8: Intelligence - Definition, Types, IQ Tests": "Definition, types of intelligence and common IQ tests.",
+          "Ch9: Attitudes & Habits": "Formation of attitudes and habits, their importance in nursing.",
+          "Ch10: Personality - Definition, Types, Assessment": "Definition, types of personality and methods of assessment.",
+          "Ch11: Defence Mechanisms": "Common defence mechanisms - sublimation, projection, rationalization etc.",
+          "Ch12: Mental Health & Frustration": "Concept of mental health, frustration and conflict."
+        },
+        "Sociology": {
+          "Ch1: Introduction - Meaning & Importance in Nursing": "Meaning of sociology and its importance for nurses.",
+          "Ch2: Individual, Family & Society - Socialization": "Process of socialization, role of family and society.",
+          "Ch3: Social Groups - Primary & Secondary": "Types of social groups and their characteristics.",
+          "Ch4: Social Processes - Cooperation, Conflict, Competition": "Important social processes.",
+          "Ch5: Culture - Characteristics, Cultural Change": "Meaning of culture, characteristics and cultural change.",
+          "Ch6: Social Stratification - Caste & Class System": "Caste system and class system in India.",
+          "Ch7: Social Problems - Poverty, Dowry, Child Marriage, Illiteracy": "Major social problems affecting health.",
+          "Ch8: Rural & Urban Community & Social Change": "Characteristics of rural and urban communities."
+        },
+        "Fundamentals of Nursing (Sister Nancy)": {
+          "Ch1: Introduction to Nursing - History, Definition, Profession": "History of nursing, definition and nursing as a profession.",
+          "Ch2: Ethics in Nursing & Health Care Agencies": "Ethical principles in nursing and types of health care agencies.",
+          "Ch3: Nursing Process - Assessment, Diagnosis, Planning, Implementation": "Steps of nursing process in detail.",
+          "Ch4: Nursing Care of Patient - Admission, Discharge, Referral": "Admission and discharge procedure, referral system.",
+          "Ch5: Meeting Basic Needs - Comfort, Rest, Sleep, Hygiene": "Meeting patient's basic needs.",
+          "Ch6: Bed Making - Open, Closed, Cardiac, Fracture Bed": "Different types of bed making.",
+          "Ch7: Personal Hygiene - Oral, Skin, Hair Care": "Care of mouth, skin and hair.",
+          "Ch8: Assessment of Patient - Vital Signs TPR, BP, Pain": "Recording temperature, pulse, respiration, blood pressure and pain.",
+          "Ch9: Physical Examination & Health Assessment": "Methods of physical examination.",
+          "Ch10: Infection Control - Hand Washing, Asepsis, Isolation": "Hand hygiene, medical & surgical asepsis, isolation techniques.",
+          "Ch11: Therapeutic Nursing Care - Hot & Cold Application": "Hot and cold applications - methods and precautions.",
+          "Ch12: Care of Unconscious, Bed Ridden & Bed Sore Care": "Care of unconscious and bedridden patient, prevention of bed sores.",
+          "Ch13: Meeting Elimination Needs - Enema, Catheterization": "Enema and urinary catheterization.",
+          "Ch14: Administration of Drugs - Oral, IM, IV, Subcutaneous": "Routes of drug administration and nursing responsibilities.",
+          "Ch15: Meeting Nutritional Needs - Feeding Helpless Patient": "Feeding of helpless patients, nasogastric feeding."
+        },
+        "First Aid (Red Cross Manual)": {
+          "Ch1: Meaning & Importance of First Aid": "Definition and importance of first aid.",
+          "Ch2: First Aid in Emergency, Golden Rules": "Golden rules of first aid.",
+          "Ch3: Wounds & Bleeding - Control of Hemorrhage": "Types of wounds and methods to control bleeding.",
+          "Ch4: Fracture & Splinting, Bandaging": "Types of fractures, splinting and bandaging techniques.",
+          "Ch5: Burns, Scalds & Heat Stroke": "Management of burns and heat stroke.",
+          "Ch6: Poisoning, Dog Bite, Snake Bite": "First aid in poisoning and bites.",
+          "Ch7: Drowning, Choking & Strangulation": "Emergency management.",
+          "Ch8: Unconsciousness & CPR - Cardio Pulmonary Resuscitation": "CPR steps and management of unconscious patient."
+        },
+        "Community Health Nursing-I (K.Park)": {
+          "Ch1: Concept of Health, Community Health & PHC": "Definitions and concepts of health, community health and primary health care.",
+          "Ch2: Health for All & Primary Health Care Principles": "Principles of primary health care.",
+          "Ch3: Family Health Nursing & Family Health Care": "Family as a unit of care.",
+          "Ch4: Home Visiting - Purpose, Principles, Bag Technique": "Home visiting and bag technique.",
+          "Ch5: Epidemiology - Definition, Methods, Disease Cycle": "Basic epidemiology.",
+          "Ch6: Bio-statistics & Vital Health Statistics": "Important vital statistics."
+        },
+        "Environmental Hygiene": {
+          "Ch1: Environment & Health - Components": "Components of environment and their effect on health.",
+          "Ch2: Water - Sources, Safe Water, Purification Methods": "Sources and purification of water.",
+          "Ch3: Air - Air Pollution & Prevention, Ventilation": "Air pollution and ventilation.",
+          "Ch4: Waste - Refuse, Excreta, Sewage Disposal": "Solid and liquid waste management.",
+          "Ch5: Housing - Standards, Requirements of Good Housing": "Housing standards."
+        },
+        "Health Education & Communication": {
+          "Ch1: Health Education - Definition, Aims, Principles": "Definition and principles of health education.",
+          "Ch2: Methods of Health Education - Individual & Group": "Individual and group methods.",
+          "Ch3: Communication Skills & Process": "Communication process and barriers.",
+          "Ch4: Audio-Visual Aids - Types & Uses": "Types of AV aids and their uses."
+        },
+        "Nutrition (Shubhangini Joshi)": {
+          "Ch1: Introduction & Importance of Nutrition": "Importance of nutrition in health and disease.",
+          "Ch2: Classification of Nutrients - Protein, Fat, Carb": "Macronutrients.",
+          "Ch3: Vitamins & Minerals - Sources & Functions": "Micronutrients.",
+          "Ch4: Balanced Diet & Nutritional Requirements": "Balanced diet and RDA.",
+          "Ch5: Nutritional Deficiency Diseases - PEM, Anemia, Goitre": "Common deficiency diseases.",
+          "Ch6: Therapeutic Diets - Diabetic, Renal, Cardiac Diet": "Therapeutic modifications of diet.",
+          "Ch7: Community Nutrition Programmes - ICDS, Mid Day Meal": "National nutrition programmes.",
+          "Ch8: Food Hygiene, Preservation & Adulteration": "Food hygiene and prevention of adulteration."
+        },
+        "English & Computer": {
+          "Ch1: English Grammar, Letter Writing, Vocabulary for Nurses": "Basic English and medical vocabulary.",
+          "Ch2: Computer Basics - MS Office, Internet, HMS": "Computer basics useful for nurses and hospital management system."
         }
-    },
-    ot: {
-        name: "OT Technician",
-        years: {
-            "1st Year": {
-                "OT Techniques": {
-                    "Chapter 1: Introduction to Operation Theatre": "Layout, zones, principles of OT.",
-                    "Chapter 2: Sterilization Methods": "Autoclave, ETO, plasma, chemical sterilization.",
-                    "Chapter 3: Surgical Instruments": "Classification, care and handling of instruments."
-                },
-                "Anatomy for OT": {
-                    "Chapter 1: Basic Anatomy": "Important organs and systems relevant to surgery.",
-                    "Chapter 2: Surgical Positions": "Common positions used in different surgeries."
-                }
-            },
-            "2nd Year": {
-                "Advanced OT Procedures": {
-                    "Chapter 1: General Surgery Setup": "Instrument sets, draping, scrubbing.",
-                    "Chapter 2: Specialty Surgeries": "Ortho, Cardiac, Neuro, Gynaec – special requirements."
-                },
-                "CSSD & Infection Control": {
-                    "Chapter 1: CSSD Workflow": "Receiving, cleaning, packing, sterilization, storage, distribution.",
-                    "Chapter 2: Hospital Infection Control": "Standard precautions, biomedical waste."
-                }
-            }
+      },
+      "2nd Year": {
+        "Medical Surgical Nursing": {
+          "Ch1: Introduction to MSN": "Scope and concepts of Medical Surgical Nursing.",
+          "Ch2: Pre & Post Operative Care": "Preparation of patient for surgery and post-operative nursing care."
+        },
+        "Mental Health Nursing": {
+          "Ch1: Introduction to Mental Health": "Concepts and principles of mental health nursing."
+        },
+        "Child Health Nursing": {
+          "Ch1: Growth & Development": "Principles and milestones."
         }
-    },
-    pbsc: {
-        name: "PB B.Sc Nursing",
-        years: {
-            "1st Year": {
-                "Nursing Foundation": {
-                    "Chapter 1: Professional Nursing": "Trends, issues, ethical and legal aspects.",
-                    "Chapter 2: Nursing Theories": "Selected nursing theories and their application."
-                },
-                "Advanced Nursing Practice": {
-                    "Chapter 1: Health Assessment": "Comprehensive health assessment techniques."
-                }
-            },
-            "2nd Year": {
-                "Nursing Research & Statistics": {
-                    "Chapter 1: Introduction to Research": "Research process, types of research.",
-                    "Chapter 2: Biostatistics": "Basic statistical methods used in nursing research."
-                },
-                "Nursing Management": {
-                    "Chapter 1: Management Principles": "Planning, organizing, staffing, directing, controlling."
-                }
-            }
+      },
+      "3rd Year": {
+        "Midwifery & Gynaecology": {
+          "Ch1: Normal Pregnancy": "Antenatal care and physiological changes."
+        },
+        "Community Health Nursing": {
+          "Ch1: National Health Programmes": "Important national health programmes."
         }
-    },
-    bsc: {
-        name: "B.Sc Nursing",
-        years: {
-            "1st Year": {
-                "Anatomy": {
-                    "Chapter 1: Introduction & Cell": "Cell structure, tissues, anatomical terminology.",
-                    "Chapter 2: Skeletal & Muscular System": "Detailed study of bones and muscles."
-                },
-                "Physiology": {
-                    "Chapter 1: Blood & Circulation": "Composition of blood, heart, blood pressure regulation.",
-                    "Chapter 2: Respiratory System": "Mechanism of breathing, gas exchange."
-                },
-                "Nutrition & Biochemistry": {
-                    "Chapter 1: Nutrients": "Carbohydrates, proteins, fats, vitamins, minerals.",
-                    "Chapter 2: Balanced Diet": "Meal planning, nutritional assessment."
-                }
-            },
-            "2nd Year": {
-                "Pharmacology": {
-                    "Chapter 1: Introduction to Pharmacology": "Pharmacokinetics, pharmacodynamics.",
-                    "Chapter 2: Drugs Acting on Systems": "Important drug groups and nursing responsibilities."
-                },
-                "Pathology & Genetics": {
-                    "Chapter 1: Cellular Injury": "Inflammation, healing, neoplasia."
-                }
-            },
-            "3rd Year": {
-                "Medical Surgical Nursing I": {
-                    "Chapter 1: Perioperative Nursing": "Pre, intra and post operative care.",
-                    "Chapter 2: Respiratory & Cardiovascular Disorders": "Nursing management."
-                }
-            },
-            "4th Year": {
-                "Midwifery & Obstetrical Nursing": {
-                    "Chapter 1: Normal Midwifery": "Antenatal, intranatal, postnatal care.",
-                    "Chapter 2: High Risk Pregnancy": "Identification and management."
-                },
-                "Community Health Nursing": {
-                    "Chapter 1: Primary Health Care": "Concepts and implementation in India."
-                }
-            }
-        }
+      }
     }
+  },
+  ot: {
+    name: "OT Technician",
+    years: {
+      "1st Year": {
+        "OT Techniques": {
+          "Ch1: Introduction to Operation Theatre": "Layout, zones and principles of OT.",
+          "Ch2: Sterilization Methods": "Autoclave, ETO, plasma sterilization."
+        }
+      },
+      "2nd Year": {
+        "Advanced OT Procedures": {
+          "Ch1: Specialty Surgeries Setup": "Ortho, Cardiac, Neuro, Gynaec requirements."
+        }
+      }
+    }
+  },
+  pbsc: {
+    name: "PB B.Sc Nursing",
+    years: {
+      "1st Year": {
+        "Nursing Foundation": {
+          "Ch1: Professional Nursing": "Trends, issues, ethical and legal aspects."
+        }
+      },
+      "2nd Year": {
+        "Nursing Research": {
+          "Ch1: Introduction to Research": "Research process and types."
+        }
+      }
+    }
+  },
+  bsc: {
+    name: "B.Sc Nursing",
+    years: {
+      "1st Year": {
+        "Anatomy": {
+          "Ch1: Introduction & Cell": "Cell structure and tissues."
+        },
+        "Physiology": {
+          "Ch1: Blood & Circulation": "Composition of blood and heart."
+        }
+      },
+      "2nd Year": {
+        "Pharmacology": {
+          "Ch1: Introduction to Pharmacology": "Pharmacokinetics and pharmacodynamics."
+        }
+      },
+      "3rd Year": {
+        "Medical Surgical Nursing": {
+          "Ch1: Perioperative Nursing": "Pre, intra and post operative care."
+        }
+      },
+      "4th Year": {
+        "Midwifery": {
+          "Ch1: Normal Midwifery": "Antenatal, intranatal and postnatal care."
+        }
+      }
+    }
+  }
 };
 
 // ===================== STATE =====================
@@ -571,173 +774,174 @@ let currentYear = null;
 let currentSubject = null;
 let currentChapter = null;
 let isAdmin = false;
+let founderTapCount = 0;
+let founderTapTimer = null;
 const ADMIN_PASSWORD = "MedEd@Thrive2026";
 
-// ===================== CORE FUNCTIONS =====================
+// ===================== CORE =====================
 function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-    document.getElementById(pageId).classList.add('active-page');
-    window.scrollTo(0,0);
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+  document.getElementById(pageId).classList.add('active-page');
+  window.scrollTo(0, 0);
 }
 
 function toggleDark() {
-    document.body.classList.toggle('dark');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
 }
 
-function openAdmin() {
-    const pass = prompt("Enter Admin Password:");
+// 5-tap on Founder for Admin
+function handleFounderTap() {
+  founderTapCount++;
+  if (founderTapTimer) clearTimeout(founderTapTimer);
+  founderTapTimer = setTimeout(() => { founderTapCount = 0; }, 2500);
+
+  if (founderTapCount >= 5) {
+    founderTapCount = 0;
+    const pass = prompt("🔐 Enter Admin Password:");
     if (pass === ADMIN_PASSWORD) {
-        isAdmin = true;
-        alert("✅ Admin Mode Activated");
-        document.querySelectorAll('.admin-badge').forEach(el => el.classList.remove('hidden'));
-        if (document.getElementById('chapterPage').classList.contains('active-page')) {
-            showAdminEditor();
-        }
+      isAdmin = true;
+      document.getElementById('adminHint').classList.remove('hidden');
+      alert("✅ Admin Mode Activated\n\nAb aap Education Library mein notes edit kar sakte ho.");
     } else if (pass !== null) {
-        alert("❌ Wrong Password");
+      alert("❌ Wrong Password");
     }
+  }
 }
 
-// ===================== EDUCATION FUNCTIONS =====================
-function openCourse(courseKey) {
-    currentCourse = courseKey;
-    const course = educationData[courseKey];
-    document.getElementById('courseTitle').innerText = course.name;
-    const grid = document.getElementById('yearGrid');
-    grid.innerHTML = '';
-    Object.keys(course.years).forEach(year => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `📅<br>${year}`;
-        div.onclick = () => openYear(year);
-        grid.appendChild(div);
-    });
-    showPage('coursePage');
+// ===================== EDUCATION =====================
+function openCourse(key) {
+  currentCourse = key;
+  const course = educationData[key];
+  document.getElementById('courseTitle').innerText = course.name;
+  const grid = document.getElementById('yearGrid');
+  grid.innerHTML = '';
+  Object.keys(course.years).forEach(year => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `📅<br>${year}`;
+    div.onclick = () => openYear(year);
+    grid.appendChild(div);
+  });
+  showPage('coursePage');
 }
 
 function openYear(year) {
-    currentYear = year;
-    document.getElementById('yearTitle').innerText = `${educationData[currentCourse].name} - ${year}`;
-    const grid = document.getElementById('subjectGrid');
-    grid.innerHTML = '';
-    const subjects = educationData[currentCourse].years[year];
-    Object.keys(subjects).forEach(sub => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `📖<br>${sub}`;
-        div.onclick = () => openSubject(sub);
-        grid.appendChild(div);
-    });
-    document.getElementById('yearBackBtn').onclick = () => openCourse(currentCourse);
-    showPage('yearPage');
+  currentYear = year;
+  document.getElementById('yearTitle').innerText = educationData[currentCourse].name + " - " + year;
+  const grid = document.getElementById('subjectGrid');
+  grid.innerHTML = '';
+  const subjects = educationData[currentCourse].years[year];
+  Object.keys(subjects).forEach(sub => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `📖<br>${sub}`;
+    div.onclick = () => openSubject(sub);
+    grid.appendChild(div);
+  });
+  document.getElementById('yearBackBtn').onclick = () => openCourse(currentCourse);
+  showPage('yearPage');
 }
 
 function openSubject(subject) {
-    currentSubject = subject;
-    document.getElementById('subjectTitle').innerText = subject;
-    const list = document.getElementById('chapterList');
-    list.innerHTML = '';
-    const chapters = educationData[currentCourse].years[currentYear][subject];
-    Object.keys(chapters).forEach(ch => {
-        const key = `\( {currentCourse}| \){currentYear}|\( {subject}| \){ch}`;
-        const completed = localStorage.getItem('completed_' + key) === 'true';
-        const bookmarked = localStorage.getItem('bookmark_' + key) === 'true';
-        const div = document.createElement('div');
-        div.className = 'chapter-card';
-        div.innerHTML = `
-            <span class="bookmark-btn">${bookmarked ? '★' : '☆'}</span>
-            <div class="chapter-title">${ch} ${completed ? '✅' : ''}</div>
-            <div class="chapter-meta">Tap to open notes</div>
-        `;
-        div.onclick = () => openChapter(ch);
-        list.appendChild(div);
-    });
-    document.getElementById('subjectBackBtn').onclick = () => openYear(currentYear);
-    showPage('subjectPage');
+  currentSubject = subject;
+  document.getElementById('subjectTitle').innerText = subject;
+  const list = document.getElementById('chapterList');
+  list.innerHTML = '';
+  const chapters = educationData[currentCourse].years[currentYear][subject];
+  Object.keys(chapters).forEach(ch => {
+    const key = `\( {currentCourse}| \){currentYear}|\( {subject}| \){ch}`;
+    const completed = localStorage.getItem('completed_' + key) === 'true';
+    const bookmarked = localStorage.getItem('bookmark_' + key) === 'true';
+    const div = document.createElement('div');
+    div.className = 'chapter-card';
+    div.innerHTML = `
+      <div class="chapter-title">${ch} ${completed ? '✅' : ''} ${bookmarked ? '★' : ''}</div>
+      <div class="chapter-meta">Tap to open notes</div>
+    `;
+    div.onclick = () => openChapter(ch);
+    list.appendChild(div);
+  });
+  document.getElementById('subjectBackBtn').onclick = () => openYear(currentYear);
+  showPage('subjectPage');
 }
 
 function openChapter(chapter) {
-    currentChapter = chapter;
-    const notes = educationData[currentCourse].years[currentYear][currentSubject][chapter];
-    const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){chapter}`;
-    
-    document.getElementById('chapterTitle').innerText = chapter;
-    document.getElementById('notesDisplay').innerText = notes;
-    
-    // Bookmark status
-    const isBook = localStorage.getItem('bookmark_' + key) === 'true';
-    document.getElementById('bookmarkBtn').innerText = isBook ? '★' : '☆';
-    
-    // Admin editor
-    if (isAdmin) {
-        showAdminEditor();
-        document.getElementById('notesEditor').value = notes;
-    } else {
-        document.getElementById('adminEditArea').classList.add('hidden');
-        document.getElementById('notesDisplay').classList.remove('hidden');
-    }
-    
-    document.getElementById('chapterBackBtn').onclick = () => openSubject(currentSubject);
-    showPage('chapterPage');
-}
+  currentChapter = chapter;
+  const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){chapter}`;
+  let notes = educationData[currentCourse].years[currentYear][currentSubject][chapter];
+  const savedNotes = localStorage.getItem('notes_' + key);
+  if (savedNotes) notes = savedNotes;
 
-function showAdminEditor() {
+  document.getElementById('chapterTitle').innerText = chapter;
+  document.getElementById('notesDisplay').innerText = notes;
+
+  // File link
+  const fileLink = localStorage.getItem('file_' + key);
+  const fileDiv = document.getElementById('fileLinks');
+  if (fileLink) {
+    fileDiv.innerHTML = `<a href="${fileLink}" target="_blank" class="link-btn">📥 Download / Open File</a>`;
+  } else {
+    fileDiv.innerHTML = '';
+  }
+
+  // Bookmark
+  const isBook = localStorage.getItem('bookmark_' + key) === 'true';
+  document.getElementById('bookmarkBtn').innerText = isBook ? '★' : '☆';
+
+  // Admin panel
+  if (isAdmin) {
     document.getElementById('adminEditArea').classList.remove('hidden');
-    document.getElementById('notesDisplay').classList.add('hidden');
+    document.getElementById('notesEditor').value = notes;
+    document.getElementById('fileLinkInput').value = fileLink || '';
+  } else {
+    document.getElementById('adminEditArea').classList.add('hidden');
+  }
+
+  document.getElementById('chapterBackBtn').onclick = () => openSubject(currentSubject);
+  showPage('chapterPage');
 }
 
 function saveNotes() {
-    const newNotes = document.getElementById('notesEditor').value;
-    educationData[currentCourse].years[currentYear][currentSubject][currentChapter] = newNotes;
-    // Also save to localStorage for persistence
-    const key = `notes_\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
-    localStorage.setItem(key, newNotes);
-    document.getElementById('notesDisplay').innerText = newNotes;
-    alert("✅ Notes saved successfully!");
+  if (!isAdmin) return;
+  const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
+  const newNotes = document.getElementById('notesEditor').value;
+  const fileLink = document.getElementById('fileLinkInput').value.trim();
+
+  educationData[currentCourse].years[currentYear][currentSubject][currentChapter] = newNotes;
+  localStorage.setItem('notes_' + key, newNotes);
+  if (fileLink) {
+    localStorage.setItem('file_' + key, fileLink);
+  } else {
+    localStorage.removeItem('file_' + key);
+  }
+
+  document.getElementById('notesDisplay').innerText = newNotes;
+  if (fileLink) {
+    document.getElementById('fileLinks').innerHTML = `<a href="${fileLink}" target="_blank" class="link-btn">📥 Download / Open File</a>`;
+  } else {
+    document.getElementById('fileLinks').innerHTML = '';
+  }
+  alert("✅ Notes & Link saved successfully!");
 }
 
 function toggleBookmark() {
-    const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
-    const current = localStorage.getItem('bookmark_' + key) === 'true';
-    localStorage.setItem('bookmark_' + key, !current);
-    document.getElementById('bookmarkBtn').innerText = !current ? '★' : '☆';
+  const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
+  const current = localStorage.getItem('bookmark_' + key) === 'true';
+  localStorage.setItem('bookmark_' + key, !current);
+  document.getElementById('bookmarkBtn').innerText = !current ? '★' : '☆';
 }
 
 function markComplete() {
-    const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
-    localStorage.setItem('completed_' + key, 'true');
-    alert("✅ Chapter marked as complete!");
-}
-
-function filterCourses() {
-    // Simple filter - can be expanded
-    const q = document.getElementById('eduSearch').value.toLowerCase();
-    // For now just basic, full search can be added later
-}
-
-// Load saved notes on start
-function loadSavedNotes() {
-    for (let course in educationData) {
-        for (let year in educationData[course].years) {
-            for (let sub in educationData[course].years[year]) {
-                for (let ch in educationData[course].years[year][sub]) {
-                    const key = `notes_\( {course}| \){year}|\( {sub}| \){ch}`;
-                    const saved = localStorage.getItem(key);
-                    if (saved) {
-                        educationData[course].years[year][sub][ch] = saved;
-                    }
-                }
-            }
-        }
-    }
+  const key = `\( {currentCourse}| \){currentYear}|\( {currentSubject}| \){currentChapter}`;
+  localStorage.setItem('completed_' + key, 'true');
+  alert("✅ Chapter marked as complete!");
 }
 
 // Init
 if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark');
+  document.body.classList.add('dark');
 }
-loadSavedNotes();
 </script>
 </body>
 </html>
