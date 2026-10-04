@@ -632,7 +632,168 @@ Your leadership, technical mastery, and steadfast commitment to excellence have 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById(pageId).classList.add('active-page');
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MED ED THRIVE R.A. - Education Library</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f1f5f9; min-height: 100vh; display: flex; justify-content: center; padding: 20px; }
+        .app-container { width: 100%; max-width: 450px; background: #ffffff; border-radius: 28px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; text-align: center; margin: 0 auto; }
+        .header { margin-bottom: 30px; }
+        .logo-placeholder { width: 95px; height: 95px; background: linear-gradient(135deg, #7dd3fc, #0284c7); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; color: white; }
+        h1 { font-size: 24px; color: #0f172a; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; }
+        .subtitle { font-size: 14px; color: #64748b; margin-bottom: 25px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 25px; }
+        .card { background: #f0f9ff; border: 1px solid #e0f2fe; padding: 20px; border-radius: 18px; cursor: pointer; transition: 0.3s; font-size: 14px; font-weight: 600; color: #0f172a; }
+        .card:hover { transform: translateY(-3px); background-color: #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.04); }
+        .page { display: none; }
+        .active-page { display: block; }
+        .back-btn { margin-top: 25px; display: inline-block; padding: 10px 20px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; }
+        .details-box { text-align: left; font-size: 13px; color: #475569; padding: 15px; background: #f8fafc; border-radius: 15px; margin-top: 10px; line-height: 1.6; border: 1px solid #e2e8f0; }
+        .search-box { width: 100%; padding: 12px 15px; border-radius: 14px; border: 1px solid #cbd5e1; margin-bottom: 20px; font-size: 14px; outline: none; }
+        .search-box:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+    </style>
+</head>
+<body>
+
+<!-- 1. Education Library Main Page (Courses) -->
+<div id="educationLibraryPage" class="page active-page app-container">
+    <div class="header">
+        <div class="logo-placeholder">📚</div>
+        <h1>Education Library</h1>
+        <p class="subtitle">Select your course to access notes & books</p>
+    </div>
+    <input type="text" class="search-box" placeholder="Search course or subject...">
+    <div class="grid">
+        <div class="card" onclick="showPage('gnmYearsPage')">🩺<br>GNM</div>
+        <div class="card" onclick="showPage('otYearsPage')">🔪<br>OT Course</div>
+        <div class="card" onclick="showPage('bscYearsPage')">📚<br>B.Sc. Nursing</div>
+        <div class="card" onclick="showPage('pbscYearsPage')">📜<br>Post Basic B.Sc</div>
+    </div>
+</div>
+
+<!-- 2. GNM Years Page -->
+<div id="gnmYearsPage" class="page app-container">
+    <h1>GNM Course</h1>
+    <p class="subtitle">Select Year</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('gnm1stYearSubjects')">1️⃣<br>1st Year</div>
+        <div class="card" onclick="showPage('gnm2ndYearSubjects')">2️⃣<br>2nd Year</div>
+        <div class="card" onclick="showPage('gnm3rdYearSubjects')">3️⃣<br>3rd Year</div>
+    </div>
+    <a class="back-btn" onclick="showPage('educationLibraryPage')">Back to Courses</a>
+</div>
+
+<!-- 3. GNM 1st Year Subjects -->
+<div id="gnm1stYearSubjects" class="page app-container">
+    <h1>GNM 1st Year</h1>
+    <p class="subtitle">Select Subject</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">🫀<br>Anatomy & Physiology</div>
+        <div class="card" onclick="showPage('subjectHubPage')">🦠<br>Microbiology</div>
+        <div class="card" onclick="showPage('subjectHubPage')">🏥<br>Nursing Foundations</div>
+        <div class="card" onclick="showPage('subjectHubPage')">🍏<br>Behavioral Science</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gnmYearsPage')">Back to Years</a>
+</div>
+
+<!-- OT Course Years Page -->
+<div id="otYearsPage" class="page app-container">
+    <h1>OT Course</h1>
+    <p class="subtitle">Select Year</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">1️⃣<br>1st Year</div>
+        <div class="card" onclick="showPage('subjectHubPage')">2️⃣<br>2nd Year</div>
+    </div>
+    <a class="back-btn" onclick="showPage('educationLibraryPage')">Back to Courses</a>
+</div>
+
+<!-- B.Sc Nursing Years Page -->
+<div id="bscYearsPage" class="page app-container">
+    <h1>B.Sc. Nursing</h1>
+    <p class="subtitle">Select Year</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">1️⃣<br>1st Year</div>
+        <div class="card" onclick="showPage('subjectHubPage')">2️⃣<br>2nd Year</div>
+        <div class="card" onclick="showPage('subjectHubPage')">3️⃣<br>3rd Year</div>
+        <div class="card" onclick="showPage('subjectHubPage')">4️⃣<br>4th Year</div>
+    </div>
+    <a class="back-btn" onclick="showPage('educationLibraryPage')">Back to Courses</a>
+</div>
+
+<!-- Post Basic B.Sc Years Page -->
+<div id="pbscYearsPage" class="page app-container">
+    <h1>Post Basic B.Sc</h1>
+    <p class="subtitle">Select Year</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">1️⃣<br>1st Year</div>
+        <div class="card" onclick="showPage('subjectHubPage')">2️⃣<br>2nd Year</div>
+    </div>
+    <a class="back-btn" onclick="showPage('educationLibraryPage')">Back to Courses</a>
+</div>
+
+<!-- GNM 2nd Year Subjects Page -->
+<div id="gnm2ndYearSubjects" class="page app-container">
+    <h1>GNM 2nd Year</h1>
+    <p class="subtitle">Select Subject</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">💊<br>Pharmacology</div>
+        <div class="card" onclick="showPage('subjectHubPage')">🩺<br>Medical-Surgical Nursing I</div>
+        <div class="card" onclick="showPage('subjectHubPage')">🧠<br>Psychiatric Nursing</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gnmYearsPage')">Back to Years</a>
+</div>
+
+<!-- GNM 3rd Year Subjects Page -->
+<div id="gnm3rdYearSubjects" class="page app-container">
+    <h1>GNM 3rd Year</h1>
+    <p class="subtitle">Select Subject</p>
+    <div class="grid">
+        <div class="card" onclick="showPage('subjectHubPage')">👩‍🍼<br>Midwifery & Gynaecology</div>
+        <div class="card" onclick="showPage('subjectHubPage')">👶<br>Pediatric Nursing</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gnmYearsPage')">Back to Years</a>
+</div>
+
+<!-- 4. Subject Hub (Books, Chapters & Important Notes) -->
+<div id="subjectHubPage" class="page app-container">
+    <h1>Subject Hub</h1>
+    <p class="subtitle">Books, Chapters & Important Notes</p>
+    
+    <div class="details-box">
+        <b>📖 Recommended Books & PDFs:</b><br>
+        • Standard Textbook (Tap to Read)<br>
+        • Reference Manual & Handbooks
+    </div>
+    
+    <div class="details-box">
+        <b>📑 Chapters & Quick Notes:</b><br>
+        • Chapter 1: Introduction & Basics<br>
+        • Chapter 2: Detailed Clinical Structure<br>
+        • Chapter 3: Advanced Concepts
+    </div>
+
+    <div class="details-box">
+        <b>⭐ Exam Corner:</b><br>
+        • Important Question Bank<br>
+        • Previous Year Exam Papers<br>
+        • Quick Revision Flashcards
+    </div>
+
+    <a class="back-btn" onclick="history.back()">Back</a>
+</div>
+
+<!-- JavaScript Navigation Script -->
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(pageId).classList.add('active-page');
+        window.scrollTo(0, 0);
     }
 </script>
+
 </body>
 </html>
