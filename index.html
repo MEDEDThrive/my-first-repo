@@ -1,569 +1,758 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="b7KZlxhrV5V9NXyqBoL3OwPqBLDyyvBHQe2-wgheYbI" />
-<title>MED ED THRIVE R.A. - Medical Portal</title>
-<style>
-:root {
-  --bg: #f1f5f9;
-  --card: #ffffff;
-  --text: #0f172a;
-  --sub: #64748b;
-  --primary: #0284c7;
-  --border: #e2e8f0;
-  --accent: #0ea5e9;
-  --success: #16a34a;
-  --danger: #dc2626;
-}
-.dark {
-  --bg: #0b1220;
-  --card: #111827;
-  --text: #f1f5f9;
-  --sub: #94a3b8;
-  --primary: #38bdf8;
-  --border: #1f2937;
-  --accent: #0ea5e9;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-body {
-  background: var(--bg);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  color: var(--text);
-  transition: background 0.3s, color 0.3s;
-}
-.app-container {
-  width: 100%;
-  max-width: 480px;
-  background: var(--card);
-  border-radius: 24px;
-  padding: 22px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-  border: 1px solid var(--border);
-  text-align: center;
-  margin: 0 auto;
-}
-.header { margin-bottom: 22px; }
-.logo-placeholder {
-  width: 88px; height: 88px;
-  background: linear-gradient(135deg, #7dd3fc, #0284c7);
-  border-radius: 50%;
-  margin: 0 auto 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32px; color: white; font-weight: 700;
-}
-h1 { font-size: 21px; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
-.subtitle { font-size: 13px; color: var(--sub); margin-bottom: 18px; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-.card {
-  background: #f0f9ff;
-  border: 1px solid #e0f2fe;
-  padding: 15px 10px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: 0.22s;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-}
-.dark .card { background: #1e293b; border-color: #334155; }
-.card:active { transform: scale(0.97); }
-.btn-container { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
-.btn {
-  display: block; width: 100%;
-  color: white; padding: 13px;
-  border-radius: 14px; font-weight: 600;
-  text-decoration: none; font-size: 15px; border: none; cursor: pointer;
-}
-.btn-yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
-.btn-insta { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
-.btn-linkedin { background: #0077b5; }
-.founder-section {
-  margin-top: 26px;
-  background: #f8fafc;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 14px;
-  display: flex; align-items: center; gap: 12px;
-  text-align: left;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.dark .founder-section { background: #1e293b; }
-.founder-img {
-  width: 54px; height: 54px;
-  border-radius: 50%; object-fit: cover;
-  border: 2px solid var(--primary);
-}
-.page { display: none; }
-.active-page { display: block; }
-.back-btn {
-  margin-top: 20px; display: inline-block;
-  padding: 9px 16px; background: #64748b; color: white;
-  border-radius: 10px; cursor: pointer; text-decoration: none; font-size: 13px;
-}
-.details-box {
-  text-align: left; font-size: 13px; color: var(--sub);
-  padding: 13px; background: #f8fafc; border-radius: 14px;
-  margin-top: 10px; line-height: 1.65;
-}
-.dark .details-box { background: #1e293b; }
-.top-bar {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 14px; gap: 8px;
-}
-.icon-btn {
-  background: var(--border); border: none;
-  width: 36px; height: 36px; border-radius: 10px;
-  cursor: pointer; font-size: 15px;
-  display: flex; align-items: center; justify-content: center;
-}
-.search-box {
-  width: 100%; padding: 11px 14px; border-radius: 12px;
-  border: 1px solid var(--border); background: var(--bg);
-  color: var(--text); margin-bottom: 12px; font-size: 14px;
-}
-.chapter-card {
-  text-align: left; padding: 13px; border-radius: 14px;
-  background: #f0f9ff; border: 1px solid #e0f2fe;
-  margin-bottom: 9px; cursor: pointer;
-}
-.dark .chapter-card { background: #1e293b; border-color: #334155; }
-.chapter-title { font-weight: 600; font-size: 13.5px; }
-.chapter-meta { font-size: 11.5px; color: var(--sub); margin-top: 3px; }
-.notes-area {
-  text-align: left; padding: 15px; background: #f8fafc;
-  border-radius: 14px; line-height: 1.7; font-size: 14px;
-  margin-top: 10px; white-space: pre-wrap;
-}
-.dark .notes-area { background: #1e293b; }
-.admin-panel {
-  background: #fef2f2; border: 1px solid #fecaca;
-  border-radius: 14px; padding: 12px; margin-top: 12px; text-align: left;
-}
-.dark .admin-panel { background: #3f1a1a; border-color: #7f1d1d; }
-.admin-panel h4 { font-size: 13px; margin-bottom: 8px; color: var(--danger); }
-textarea.edit-notes {
-  width: 100%; min-height: 140px; padding: 11px;
-  border-radius: 10px; border: 1px solid var(--border);
-  background: var(--bg); color: var(--text); font-size: 13.5px; line-height: 1.55;
-}
-.save-btn {
-  background: var(--success); color: white; border: none;
-  padding: 9px 16px; border-radius: 9px; margin-top: 8px;
-  cursor: pointer; font-weight: 600; font-size: 13px;
-}
-.hidden { display: none !important; }
-.small-text { font-size: 12px; color: var(--sub); }
-.badge {
-  display: inline-block; background: var(--primary); color: white;
-  font-size: 10px; padding: 2px 7px; border-radius: 20px; margin-left: 6px;
-}
-.link-btn {
-  display: inline-block; margin-top: 8px; padding: 7px 12px;
-  background: #0ea5e9; color: white; border-radius: 8px;
-  font-size: 12px; text-decoration: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="b7KZlxhrV5V9NXyqBoL3OwPqBLDyyvBHQe2-wgheYbI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MED ED THRIVE R.A. - Medical Portal</title>
+    <style>
+        :root {
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --sub: #64748b;
+            --primary: #0284c7;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+        .dark {
+            --bg: #0b1220;
+            --card: #111827;
+            --text: #f1f5f9;
+            --sub: #94a3b8;
+            --primary: #38bdf8;
+            --border: #1f2937;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg); min-height: 100vh; display: flex; justify-content: center; padding: 20px; color: var(--text); transition: 0.3s; }
+        .app-container { width: 100%; max-width: 450px; background: var(--card); border-radius: 28px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid var(--border); text-align: center; margin: 0 auto; }
+        .header { margin-bottom: 30px; }
+        .logo-placeholder { width: 95px; height: 95px; background: linear-gradient(135deg, #7dd3fc, #0284c7); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; color: white; }
+        h1 { font-size: 24px; color: var(--text); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; }
+        .subtitle { font-size: 14px; color: var(--sub); margin-bottom: 25px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 25px; }
+        .card { background: #f0f9ff; border: 1px solid #e0f2fe; padding: 20px; border-radius: 18px; cursor: pointer; transition: 0.3s; font-size: 14px; font-weight: 600; color: var(--text); }
+        .dark .card { background: #1e293b; border-color: #334155; }
+        .card:hover { transform: translateY(-3px); background-color: var(--card); box-shadow: 0 10px 20px rgba(0,0,0,0.04); }
+        .btn-container { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+        .btn { display: block; width: 100%; color: white; padding: 16px; border-radius: 16px; font-weight: 600; text-decoration: none; font-size: 16px; border: none; cursor: pointer; }
+        .btn-yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
+        .btn-insta { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+        .founder-section { margin-top: 35px; background: #f8fafc; border: 1px solid var(--border); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 15px; text-align: left; user-select: none; -webkit-user-select: none; }
+        .dark .founder-section { background: #1e293b; }
+        .founder-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+        .page { display: none; }
+        .active-page { display: block; }
+        .back-btn { margin-top: 25px; display: inline-block; padding: 10px 20px; background: #64748b; color: white; border-radius: 10px; cursor: pointer; text-decoration: none; }
+        .details-box { text-align: left; font-size: 13px; color: var(--sub); padding: 15px; background: #f8fafc; border-radius: 15px; margin-top: 10px; line-height: 1.6; }
+        .dark .details-box { background: #1e293b; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .icon-btn { background: var(--border); border: none; width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+        .chapter-card { text-align: left; padding: 14px; border-radius: 14px; background: #f0f9ff; border: 1px solid #e0f2fe; margin-bottom: 10px; cursor: pointer; }
+        .dark .chapter-card { background: #1e293b; border-color: #334155; }
+        .chapter-title { font-weight: 600; font-size: 13.5px; }
+        .chapter-meta { font-size: 12px; color: var(--sub); margin-top: 4px; }
+        .notes-area { text-align: left; padding: 15px; background: #f8fafc; border-radius: 14px; line-height: 1.7; font-size: 14px; margin-top: 10px; white-space: pre-wrap; }
+        .dark .notes-area { background: #1e293b; }
+        .admin-panel { background: #fef2f2; border: 1px solid #fecaca; border-radius: 14px; padding: 12px; margin-top: 12px; text-align: left; }
+        .dark .admin-panel { background: #3f1a1a; border-color: #7f1d1d; }
+        .admin-panel h4 { font-size: 13px; margin-bottom: 8px; color: var(--danger); }
+        textarea.edit-notes { width: 100%; min-height: 140px; padding: 11px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 13.5px; line-height: 1.55; }
+        .save-btn { background: var(--success); color: white; border: none; padding: 9px 16px; border-radius: 9px; margin-top: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
+        .hidden { display: none !important; }
+        .small-text { font-size: 12px; color: var(--sub); }
+        .link-btn { display: inline-block; margin-top: 8px; padding: 7px 12px; background: #0ea5e9; color: white; border-radius: 8px; font-size: 12px; text-decoration: none; }
+        .search-box { width: 100%; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-bottom: 12px; font-size: 14px; }
+    </style>
 </head>
 <body>
 
-<!-- ===================== HOME ===================== -->
+<!-- HOME PAGE -->
 <div id="homePage" class="page active-page app-container">
-  <div class="top-bar">
-    <div></div>
-    <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">🌓</button>
-  </div>
-  <div class="header">
-    <div class="logo-placeholder">M</div>
-    <h1>MED ED THRIVE R.A.</h1>
-    <p class="subtitle">Your Digital Guide to Medical Education</p>
-  </div>
-  <div class="grid">
-    <div class="card" onclick="showPage('surgeryPage')">🩺<br>Surgical Procedures</div>
-    <div class="card" onclick="showPage('equipmentPage')">🔬<br>Medical Equipment & CSSD</div>
-    <div class="card" onclick="showPage('educationPage')">📚<br>Education Library</div>
-    <div class="card" onclick="showPage('patientCarePage')">👨‍⚕️<br>Patient Care</div>
-  </div>
-  <div class="btn-container">
-    <a href="https://youtube.com/@mededthrive123?si=s-fRRPefmNA4gLVV" class="btn btn-yt" target="_blank">Subscribe on YouTube</a>
-    <a href="https://www.instagram.com/__raj__malviya?igsh=MTBjYXdiNDR1emFseQ==" class="btn btn-insta" target="_blank">Follow on Instagram</a>
-    <a href="https://www.linkedin.com/in/raj-malviya" class="btn btn-linkedin" target="_blank">Follow on LinkedIn</a>
-  </div>
-
-  <!-- Founder - 5 tap for Admin -->
-  <div class="founder-section" id="founderTap" onclick="handleFounderTap()">
-    <img src="1779078968163.jpg" alt="Raj Malviya" class="founder-img" onerror="this.src='https://via.placeholder.com/54'">
-    <div>
-      <h3 style="font-size:15px;">Raj Malviya</h3>
-      <p class="small-text">Founder & Creator</p>
+    <div class="top-bar">
+        <div></div>
+        <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">🌓</button>
     </div>
-  </div>
-  <p id="adminHint" class="small-text hidden" style="margin-top:8px;">🔐 Admin Mode Active</p>
+    <div class="header">
+        <div class="logo-placeholder">M</div>
+        <h1>MED ED THRIVE R.A.</h1>
+        <p class="subtitle">Your Digital Guide to Medical Education.</p>
+    </div>
+    <div class="grid">
+        <div class="card" onclick="showPage('surgeryPage')">🩺<br>Surgical Procedures</div>
+        <div class="card" onclick="showPage('equipmentPage')">🔬<br>Medical Equipment & CSSD</div>
+        <div class="card" onclick="showPage('educationPage')">📚<br>Education Library</div>
+        <div class="card" onclick="showPage('patientCarePage')">🧑‍⚕️<br>Patient Care</div>
+    </div>
+    <div class="btn-container">
+        <a href="https://youtube.com/@mededthrive123?si=s-fRRPefmNA4gLVV" class="btn btn-yt" target="_blank">Subscribe on YouTube</a>
+        <a href="https://www.instagram.com/__raj__malviya?igsh=MTBjYXdiNDR1emFseQ==" class="btn btn-insta" target="_blank">Follow on Instagram</a>
+        <a href="https://www.linkedin.com/in/raj-malviya" class="btn" target="_blank" style="background: #0077b5; color: white;">Follow on LinkedIn</a>
+    </div>
+    <div class="founder-section" id="founderTap" onclick="handleFounderTap()">
+        <img src="1779078968163.jpg" alt="Raj Malviya - Founder & Content Creator of MED ED THRIVE R.A." class="founder-img" onerror="this.style.display='none'">
+        <div><h3>Raj Malviya</h3><p class="small-text">Founder & Creator</p></div>
+    </div>
+    <p id="adminHint" class="small-text hidden" style="margin-top:10px;">🔐 Admin Mode Active</p>
 </div>
 
-<!-- ===================== SURGERY ===================== -->
+<!-- SURGERY SECTION -->
 <div id="surgeryPage" class="page app-container">
-  <h1>Surgical Procedures</h1>
-  <div class="grid">
-    <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
-    <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
-    <div class="card" onclick="showPage('gynaecPage')">🤰<br>Gynaec O.T.</div>
-    <div class="card" onclick="showPage('neuroPage')">🧠<br>Neuro O.T.</div>
-    <div class="card" onclick="showPage('orthoPage')">🦴<br>Ortho O.T.</div>
-  </div>
-  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+    <h1>Surgical Procedures</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('cardiacPage')">🫀<br>Cardiac O.T.</div>
+        <div class="card" onclick="showPage('laparoPage')">🔪<br>Laparo O.T.</div>
+        <div class="card" onclick="showPage('gynaecPage')">🤰<br>Gynaec O.T.</div>
+        <div class="card" onclick="showPage('neuroPage')">🧠<br>Neuro O.T.</div>
+        <div class="card" onclick="showPage('orthoPage')">🦴<br>Ortho O.T.</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
 <div id="orthoPage" class="page app-container">
-  <h1>Ortho O.T.</h1>
-  <div class="grid">
-    <div class="card" onclick="showPage('orthoFracture')">🛠️<br>Fracture & Trauma</div>
-    <div class="card" onclick="showPage('orthoJoint')">⚙️<br>Joint Replacement</div>
-    <div class="card" onclick="showPage('orthoScopy')">🔭<br>Ortho Scopy</div>
-  </div>
-  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+    <h1>Ortho O.T.</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('orthoFracture')">🛠️<br>Fracture & Trauma</div>
+        <div class="card" onclick="showPage('orthoJoint')">⚙️<br>Joint Replacement</div>
+        <div class="card" onclick="showPage('orthoScopy')">🔭<br>Ortho Scopy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
 <div id="orthoFracture" class="page app-container">
-  <h1>Fracture & Trauma</h1>
-  <div class="grid">
-    <div class="card">🔩<br>ORIF</div>
-    <div class="card">🔗<br>External Fixation</div>
-  </div>
-  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+    <h1>Fracture & Trauma</h1>
+    <div class="grid">
+        <div class="card">🔩<br>ORIF</div>
+        <div class="card">🔗<br>External Fixation</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
 </div>
 
 <div id="orthoJoint" class="page app-container">
-  <h1>Joint Replacement</h1>
-  <div class="grid">
-    <div class="card">🦵<br>TKR</div>
-    <div class="card">🦴<br>THR</div>
-    <div class="card">💪<br>Shoulder Replacement</div>
-  </div>
-  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+    <h1>Joint Replacement</h1>
+    <div class="grid">
+        <div class="card">🦵<br>TKR</div>
+        <div class="card">🦴<br>THR</div>
+        <div class="card">💪<br>Shoulder Replacement</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
 </div>
 
 <div id="orthoScopy" class="page app-container">
-  <h1>Ortho Scopy</h1>
-  <div class="grid">
-    <div class="card">🔭 ACL</div>
-    <div class="card">🔭 PCL</div>
-    <div class="card">🔭 MCL</div>
-    <div class="card">🔭 MR</div>
-    <div class="card">🔭 RCR</div>
-  </div>
-  <a class="back-btn" onclick="showPage('orthoPage')">← Back</a>
+    <h1>Ortho Scopy</h1>
+    <div class="grid">
+        <div class="card">🔭<br>ACL</div>
+        <div class="card">🔭<br>PCL</div>
+        <div class="card">🔭<br>MCL</div>
+        <div class="card">🔭<br>MR</div>
+        <div class="card">🔭<br>RCR</div>
+    </div>
+    <a class="back-btn" onclick="showPage('orthoPage')">Back</a>
 </div>
 
 <div id="cardiacPage" class="page app-container">
-  <h1>Cardiac O.T.</h1>
-  <div class="grid">
-    <div class="card">🫀 CABG</div>
-    <div class="card">🫀 H.V.S</div>
-    <div class="card">🫀 C.H.D</div>
-    <div class="card">🫀 C.D.I</div>
-    <div class="card">🫀 Aneurysm Repair</div>
-    <div class="card">🫀 Heart Transplant</div>
-    <div class="card">🫀 M.I.H.S</div>
-  </div>
-  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+    <h1>Cardiac O.T.</h1>
+    <div class="grid">
+        <div class="card">🫀<br>CABG</div>
+        <div class="card">🫀<br>H.V.S</div>
+        <div class="card">🫀<br>C.H.D</div>
+        <div class="card">🫀<br>C.D.I</div>
+        <div class="card">🫀<br>Aneurysm Repair</div>
+        <div class="card">🫀<br>Heart Transplant</div>
+        <div class="card">🫀<br>M.I.H.S</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
 <div id="laparoPage" class="page app-container">
-  <h1>Laparo O.T.</h1>
-  <div class="grid">
-    <div class="card">📷 Cholecystectomy</div>
-    <div class="card">🔭 Appendectomy</div>
-    <div class="card">🏥 Hernia Repair</div>
-    <div class="card">👩‍⚕️ Gynaecology</div>
-    <div class="card">⚖️ Bariatric Surgery</div>
-    <div class="card">🎗️ Colorectal & Oncology</div>
-  </div>
-  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+    <h1>Laparo O.T.</h1>
+    <div class="grid">
+        <div class="card">📷<br>Cholecystectomy</div>
+        <div class="card">🔭<br>Appendectomy</div>
+        <div class="card">🏥<br>Hernia Repair</div>
+        <div class="card">👩‍⚕️<br>Gynaecology</div>
+        <div class="card">⚖️<br>Bariatric Surgery</div>
+        <div class="card">🎗️<br>Colorectal & Oncology</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
 <div id="gynaecPage" class="page app-container">
-  <h1>Gynaec O.T.</h1>
-  <div class="grid">
-    <div class="card" onclick="showPage('gynSurgeries')">🏥 Surgeries</div>
-    <div class="card" onclick="showPage('gynSectionC')">🤰 Section-C</div>
-    <div class="card" onclick="showPage('gynMinor')">🩺 Minor Procedures</div>
-    <div class="card" onclick="showPage('gynTubal')">🔗 Tubal Surgery</div>
-    <div class="card">🎗️ Myomectomy</div>
-  </div>
-  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+    <h1>Gynaec O.T.</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('gynSurgeries')">🏥<br>Surgeries</div>
+        <div class="card" onclick="showPage('gynSectionC')">🤰<br>Section-C</div>
+        <div class="card" onclick="showPage('gynMinor')">🩺<br>Minor Procedures</div>
+        <div class="card" onclick="showPage('gynTubal')">🔗<br>Tubal Surgery</div>
+        <div class="card">🎗️<br>Myomectomy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
 <div id="gynSurgeries" class="page app-container">
-  <h1>Surgeries</h1>
-  <div class="grid">
-    <div class="card">🩹 Pelvic Repair</div>
-    <div class="card">🏥 Hysterectomy</div>
-    <div class="card">🏥 Abdominal Hyst.</div>
-    <div class="card">🔭 Laparoscopy Hyst.</div>
-    <div class="card">🏥 Vaginal Hyst.</div>
-  </div>
-  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+    <h1>Surgeries</h1>
+    <div class="grid">
+        <div class="card">🩹<br>Pelvic Repair</div>
+        <div class="card">🏥<br>Hysterectomy</div>
+        <div class="card">🏥<br>Abdominal Hyst.</div>
+        <div class="card">🔭<br>Laparoscopy Hyst.</div>
+        <div class="card">🏥<br>Vaginal Hyst.</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gynaecPage')">Back</a>
 </div>
 
 <div id="gynSectionC" class="page app-container">
-  <h1>Section-C</h1>
-  <div class="grid">
-    <div class="card">👶 LSCS</div>
-    <div class="card">🤰 C-Section (OC)</div>
-  </div>
-  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+    <h1>Section-C</h1>
+    <div class="grid">
+        <div class="card">👶<br>LSCS</div>
+        <div class="card">🤰<br>C-Section (OC)</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gynaecPage')">Back</a>
 </div>
 
 <div id="gynMinor" class="page app-container">
-  <h1>Minor Procedures</h1>
-  <div class="grid">
-    <div class="card">🩺 D&C</div>
-    <div class="card">🔭 Hysteroscopy</div>
-  </div>
-  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+    <h1>Minor Procedures</h1>
+    <div class="grid">
+        <div class="card">🩺<br>D&C</div>
+        <div class="card">🔭<br>Hysteroscopy</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gynaecPage')">Back</a>
 </div>
 
 <div id="gynTubal" class="page app-container">
-  <h1>Tubal Surgery</h1>
-  <div class="grid">
-    <div class="card">🔗 Tubal Ligation</div>
-    <div class="card">⚠️ Ectopic Pregnancy</div>
-    <div class="card">🔄 Tubal Recanalization</div>
-  </div>
-  <a class="back-btn" onclick="showPage('gynaecPage')">← Back</a>
+    <h1>Tubal Surgery</h1>
+    <div class="grid">
+        <div class="card">🔗<br>Tubal Ligation</div>
+        <div class="card">⚠️<br>Ectopic Pregnancy</div>
+        <div class="card">🔄<br>Tubal Recanalization</div>
+    </div>
+    <a class="back-btn" onclick="showPage('gynaecPage')">Back</a>
 </div>
 
 <div id="neuroPage" class="page app-container">
-  <h1>Neuro O.T.</h1>
-  <div class="grid">
-    <div class="card">🧠 Brain Tumor Resection</div>
-    <div class="card">⚡ Aneurysm Clipping</div>
-    <div class="card">🩸 Trauma & Hematoma</div>
-    <div class="card">⚙️ VP Shunt</div>
-    <div class="card">⚡ DBS</div>
-    <div class="card">🔪 Microdiscectomy</div>
-    <div class="card">🏥 Laminectomy</div>
-    <div class="card">🔗 Spinal Fusion</div>
-    <div class="card">🩻 Spinal Tumor Excision</div>
-  </div>
-  <a class="back-btn" onclick="showPage('surgeryPage')">← Back</a>
+    <h1>Neuro O.T.</h1>
+    <div class="grid">
+        <div class="card">🧠<br>Brain Tumor Resection</div>
+        <div class="card">⚡<br>Aneurysm Clipping</div>
+        <div class="card">🩸<br>Trauma & Hematoma</div>
+        <div class="card">⚙️<br>VP Shunt</div>
+        <div class="card">⚡<br>DBS</div>
+        <div class="card">🔪<br>Microdiscectomy</div>
+        <div class="card">🏥<br>Laminectomy</div>
+        <div class="card">🔗<br>Spinal Fusion</div>
+        <div class="card">🩻<br>Spinal Tumor Excision</div>
+    </div>
+    <a class="back-btn" onclick="showPage('surgeryPage')">Back</a>
 </div>
 
-<!-- ===================== EQUIPMENT & CSSD ===================== -->
+<!-- EQUIPMENT & CSSD - FULL ORIGINAL CONTENT -->
 <div id="equipmentPage" class="page app-container">
-  <h1>Medical Equipment & CSSD</h1>
-  <div class="grid">
-    <div class="card" onclick="showPage('sterilMachinePage')">✨<br>Sterilization Machines</div>
-    <div class="card" onclick="showPage('storeLobbyPage')">🏬<br>Store Lobby</div>
-    <div class="card" onclick="showPage('washingAreaPage')">🧽<br>Washing Area</div>
-    <div class="card" onclick="showPage('sterilizationZonePage')">⚙️<br>Sterilization Zone</div>
-    <div class="card" onclick="showPage('inchargePage')">🥸<br>CSSD Incharge</div>
-  </div>
-  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+    <h1>Medical Equipment & CSSD</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('sterilMachinePage')">✨<br>Sterilization Machines</div>
+        <div class="card" onclick="showPage('storelobyPage')">🏬<br>Store Lobby</div>
+        <div class="card" onclick="showPage('washingareaPage')">🧽<br>Washing Area</div>
+        <div class="card" onclick="showPage('sterilizationzonePage')">⚙️<br>Sterilization Zone</div>
+        <div class="card" onclick="showPage('inchargePage')">🥸<br>Incharge of CSSD</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
 <div id="sterilMachinePage" class="page app-container">
-  <h1>Sterilization Machines</h1>
-  <div class="grid">
-    <div class="card" onclick="showPage('autoclavePage')">🌡️<br>Autoclave</div>
-    <div class="card" onclick="showPage('etoPage')">🧪<br>ETO</div>
-    <div class="card" onclick="showPage('ultrasonicPage')">🔊<br>Ultrasonic</div>
-  </div>
-  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+    <h1>Sterilization Machines</h1>
+    <div class="grid">
+        <div class="card" onclick="showPage('autoclavePage')">🌡️<br>AUTOCLAVE</div>
+        <div class="card" onclick="showPage('etoPage')">🧪<br>ETO</div>
+        <div class="card" onclick="showPage('ultrasonicPage')">🔊<br>ULTRA SONIC</div>
+    </div>
+    <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
+<!-- AUTOCLAVE FULL -->
 <div id="autoclavePage" class="page app-container">
-  <h1>Autoclave</h1>
+    <h1>AUTOCLAVE</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Vertical Autoclave</h3>
+    <img src="IMG20260622225042.jpg" alt="Vertical Autoclave" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media Primary Function: The main purpose of this machine is sterilization. It uses high-pressure steam to effectively eliminate bacteria, viruses, fungi, and spores from medical instruments, laboratory glassware, and other materials.
+Intended Use: As indicated in the image, it is used in laboratories, clinics, and small healthcare centers.
+Design and Structure: It is a durable, stainless steel cylindrical vessel. It features a pressure gauge on top to monitor pressure during operation, along with a secure sealing system using knobs and safety valves to maintain high-pressure conditions.
+Control Panel: The unit includes a side-mounted control box equipped with a digital display and buttons, allowing for the regulation of temperature and operational timing.
+    </div>
+    
+    <h3 style="margin-top:25px; color:var(--primary);">2. Horizontal Autoclave</h3>
+    <img src="IMG20260622205750.jpg" alt="Horizontal Autoclave" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> Front-loading rectangular chamber, High capacity for bulk sets, Faster drying cycle. Design Type: It is a vertical (upright) autoclave, specifically designed for use in medical and laboratory environments.
+Construction Material: The unit is constructed from durable stainless steel, which provides resistance against high pressure and corrosion.
+Pressure Monitoring: It features an analog pressure gauge located on the top lid, which allows the operator to monitor internal pressure during the sterilization cycle to ensure safety.
+Sealing Mechanism: The lid is secured using several rotating knobs around the rim, which ensure an airtight seal to prevent steam from escaping during operation.
+Control Panel: A side-mounted electronic control box is included, featuring a digital display that allows for the configuration of temperature and timing, along with indicator lights and operation buttons.
+Operational Function and Use
+Core Function: The machine utilizes pressurized steam to eliminate microorganisms, including bacteria, viruses, and spores, ensuring that instruments are completely sterilized.
+Target Users: It is designed for settings where instrument safety and hygiene are critical, such as small healthcare centers, clinics, and laboratories.
+    </div>
 
-  <h3 style="margin-top:16px;color:var(--primary);font-size:15px;">1. Vertical Autoclave</h3>
-  <img src="IMG20260622225042.jpg" alt="Vertical Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
-    <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
-    <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media. Primary Function: The main purpose of this machine is sterilization. It uses high-pressure steam to effectively eliminate bacteria, viruses, fungi, and spores from medical instruments, laboratory glassware, and other materials.
-  </div>
+    <h3 style="margin-top:25px; color:var(--primary);">3. Sterile Dilator Set</h3>
+    <img src="IMG20260622203212.jpg" alt="Sterile Dilator Set" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> Indicator Tape ka kaam: Ye tape sterilization ke dauran heat aur pressure ke sampark mein aane par apna rang badal leti hai. Ye is baat ka proof hota hai ki instruments ke set ko sahi tareeke se autoclave process se gujara gaya hai.
+Sterilization ka tarika: Surgical instruments ko pehle ek saaf kapde mein wrap kiya jata hai (jaisa ki image mein dikh raha hai) taaki sterilization ke baad wo contamination se safe rahein.
+Tape ki mahatta: Wrap kiye gaye set par jab ye tape lagayi jati hai, tab ye ek indicator ki tarah kaam karti hai ki andar ke instruments sterilize ho gaye hain. Is par aap "Hegar Dilator SET" jaisa label bhi dekh sakte hain, jo instruments ki pehchan karne mein madad karta hai..
+    </div>
 
-  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">2. Horizontal Autoclave</h3>
-  <img src="IMG20260622205750.jpg" alt="Horizontal Autoclave" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
-    <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
-    <b>Key Features:</b> Front-loading rectangular chamber, High capacity for bulk sets, Faster drying cycle.
-  </div>
+    <h3 style="margin-top:25px; color:var(--primary);">4. Autoclave Trolley</h3>
+    <img src="IMG20260622203225.jpg" alt="Autoclave Trolley" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> "Autoclave Trolley" or "Loading Trolley".
+Purpose and Usage: This trolley is specifically designed for use with horizontal autoclave machines. Wrapped instrument sets are placed onto this trolley, which is then slid into the horizontal chamber of the autoclave for the sterilization process.
+Construction: It is typically constructed from stainless steel and features perforated trays. This perforated design is essential as it allows for proper steam circulation, which ensures thorough sterilization and helps the instrument sets dry more quickly after the cycle is complete.
+Importance in Healthcare: The trolley is a critical component of the loading system in large hospitals, Operating Theaters (O.T.), and Central Sterile Supply Departments (CSSD). It allows for the safe and efficient handling of heavy or bulk loads of instrument sets, simplifying the workflow in sterile processing areas.
+In summary, this is a specialized loading system utilized in professional healthcare settings to manage the sterilization of bulk instrument sets..
+    </div>
 
-  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">3. Sterile Dilator Set</h3>
-  <img src="IMG20260622203212.jpg" alt="Sterile Dilator Set" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    Indicator Tape ka kaam: Ye tape sterilization ke dauran heat aur pressure ke sampark mein aane par apna rang badal leti hai. Ye is baat ka proof hota hai ki instruments ke set ko sahi tareeke se autoclave process se gujara gaya hai.<br>
-    Surgical instruments ko pehle ek saaf kapde mein wrap kiya jata hai taaki sterilization ke baad wo contamination se safe rahein.
-  </div>
+    <h3 style="margin-top:25px; color:var(--primary);">5. Sterilization Process</h3>
+    <img src="IMG20260622203241.jpg" alt="Sterilization Process" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> The Sterilization Process
+Cleaning and Drying: After use, all surgical instruments are thoroughly cleaned to remove organic debris, then dried completely to eliminate any remaining moisture.
+Packaging: Once dried, the instruments are organized into a surgical tray and wrapped in specialized medical-grade cloth, which allows steam to penetrate while preventing bacterial contamination after the process.
+Labeling: An 'autoclave indicator tape' is applied to the cloth bundle, which is then labeled with the set's name (e.g., Hegar Dilator SET). This tape changes color after the sterilization cycle, confirming that the instruments have been processed correctly.
+Loading: These prepared bundles are arranged systematically onto an 'autoclave trolley'. This trolley is specifically designed to ensure optimal steam circulation around the packages.
+Autoclave Cycle: The loaded trolley is placed into a horizontal autoclave, which utilizes pre-vacuum steam sterilization to achieve deep penetration of the steam into the instruments.
+Drying Cycle: Following sterilization, the machine initiates a 'fast drying cycle' to ensure that both the instruments and the wrapping cloth are completely moisture-free.
+This comprehensive procedure ensures that instruments are safely processed to meet hospital standards and prevent the risk of infection..
+    </div>
 
-  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">4. Autoclave Trolley</h3>
-  <img src="IMG20260622203225.jpg" alt="Autoclave Trolley" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    This trolley is specifically designed for use with horizontal autoclave machines. Wrapped instrument sets are placed onto this trolley, which is then slid into the horizontal chamber of the autoclave for the sterilization process. Constructed from stainless steel with perforated trays for proper steam circulation.
-  </div>
+    <h3 style="margin-top:25px; color:var(--primary);">6. Signal Indicator</h3>
+    <img src="IMG20260622203357.jpg" alt="Signal Indicator" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> Role as an Indicator: This tape is specifically designed for sterilization processes. When exposed to the high heat and pressure inside an autoclave, the tape changes color to provide visual confirmation that the sterilization cycle has been completed.
+Application: It is used to secure the cloth wrapping of surgical instrument sets. By acting as a seal, it keeps the instruments protected from contamination after they have been sterilized.
+Labeling and Identification: The tape serves a dual purpose as it can be written on. As shown in 147385.jpg, it is used to label the contents of the bundle (e.g., "Hegar Dilator SET"), allowing medical staff to easily identify the specific instruments inside.
+Safety Function: The use of this tape is a critical safety protocol in medical and laboratory environments to ensure that only properly sterilized instruments are used on patients..
+    </div>
 
-  <h3 style="margin-top:20px;color:var(--primary);font-size:15px;">5. Sterilization Process</h3>
-  <img src="IMG20260622203241.jpg" alt="Sterilization Process" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    Cleaning and Drying → Packaging → Labeling with indicator tape → Loading on trolley → Autoclave Cycle (pre-vacuum steam) → Fast drying cycle. This ensures instruments meet hospital infection control standards.
-  </div>
+    <h3 style="margin-top:25px; color:var(--primary);">7. Colour Change</h3>
+    <img src="IMG20260622203403.jpg" alt="Colour Change" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> Color Change: This tape acts as proof that the sterilization process has been finished. When the tape is exposed to high temperatures and pressure inside an autoclave, the diagonal stripes on it change color.
+Indication of Successful Sterilization: The black stripes visible in the file 147389.jpg indicate that the bundle has successfully completed the sterilization cycle. This assures medical personnel that the instruments inside are now sterile and ready for use.
+Security of Packaging: Beyond serving as a sterilization indicator, the tape helps securely hold the cloth wrapping around the surgical instruments, preventing them from becoming contaminated before use.
+Identification: The tape is also used to label the instrument set, as seen with the text "Hegar Dilator SET" written on it. This simplifies the process of identifying instruments within an Operating Theater (O.T.) or Central Sterile Supply Department (CSSD).
+    </div>
 
-  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+    <h3 style="margin-top:25px; color:var(--primary);">8. Machine Loading</h3>
+    <img src="IMG20260622205725.jpg" alt="Machine Loading" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> The step-by-step process for sterilizing instrument sets using this machine is as follows:
+Preparation and Loading: Surgical instruments are cleaned, dried, and wrapped in specialized medical-grade cloth. These bundles (as seen inside the chamber in 147390.jpg) are arranged on a loading trolley, which is then slid into the horizontal chamber of the autoclave.
+Sterilization Mechanism: The machine employs a pre-vacuum steam sterilization technique. By creating a vacuum before introducing steam, the machine ensures that the steam can deeply penetrate all wrapped items, effectively eliminating all microorganisms, including bacteria, viruses, and spores.
+High-Capacity Operation: Designed with a front-loading rectangular chamber, this autoclave is built to handle bulk loads, allowing hospitals to sterilize multiple instrument sets simultaneously.
+Drying Cycle: Once the sterilization phase is complete, the machine runs a fast drying cycle. This is crucial for removing any residual moisture from the instruments and the wrapping cloth, ensuring the packages are dry and ready for sterile storage.
+This rigorous process is essential for maintaining strict infection control standards, ensuring that every instrument used in surgery is completely sterile..
+    </div>
+
+    <h3 style="margin-top:25px; color:var(--primary);">9. Machine and Operating System</h3>
+    <img src="IMG20260623081457.jpg" alt="Machine and Operating System" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> Control System: The machine is paired with a dedicated control console that allows for digital operation. This system is used to manage sterilization cycles and precisely regulate critical parameters like temperature and pressure.
+Intended Environment: This equipment is specifically engineered for use in large hospitals, Central Sterile Supply Departments (CSSD), and Operating Theaters (O.T.).
+Operational Mechanism: It utilizes "pre-vacuum steam sterilization" technology. This mechanism ensures deep steam penetration, which is vital for effectively sterilizing the interior of various medical instruments.
+Key Features:
+It includes a front-loading rectangular chamber.
+The design provides high capacity, making it suitable for processing bulk instrument sets simultaneously.
+It is equipped with a faster drying cycle, ensuring that instruments are moisture-free and ready for use quickly after the sterilization process concludes.
+    </div>
+    <a class="back-btn" onclick="showPage('sterilMachinePage')">Back</a>
 </div>
 
+<!-- ETO FULL -->
 <div id="etoPage" class="page app-container">
-  <h1>ETO Sterilizer</h1>
-  <img src="IMG20260623081439.jpg" alt="ETO Machine" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    <b>Usage:</b> Heat & moisture sensitive instruments (plastic, rubber, electronics).<br>
-    <b>Mechanism:</b> Ethylene Oxide gas sterilization (not steam).<br>
-    <b>Key Point:</b> Used when autoclave cannot be used because high heat/moisture would damage the item.
-  </div>
-  <h3 style="margin-top:16px;color:var(--primary);font-size:15px;">Packaging for ETO</h3>
-  <img src="IMG20260622205940.jpg" alt="ETO Packaging" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    Dual-layer medical pouches (plastic + breathable paper) allow ETO gas to penetrate while maintaining sterile barrier after process.
-  </div>
-  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+    <h1>ETO</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Horizontal ETO Machine</h3>
+    <img src="IMG20260623081439.jpg" alt="Horizontal ETO" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Usage: This machine is utilized in laboratories, clinics, and small healthcare centers.
+Mechanism: It operates using steam under pressure through a gravity displacement method.
+Key Features:
+The unit is designed with a top-loading cylindrical chamber.
+It features a front-facing HMI (Human-Machine Interface) digital screen and multiple control knobs to simplify operation.
+For safety, an emergency stop button is included on the control panel.
+    </div>
+
+    <h3 style="margin-top:25px; color:var(--primary);">2. Manual and Digital Function of ETO</h3>
+    <img src="IMG20260622220131.jpg" alt="ETO Function" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Large Hospitals, CSSD, and O.T.<br>
+        <b>Mechanism:</b> Pre-vacuum steam sterilization for deep penetration.<br>
+        <b>Key Features:</b> ETO Sterilization Process: Unlike an autoclave that uses steam, this machine utilizes Ethylene Oxide gas, which acts as a powerful sterilizing agent.
+Purpose of Use: ETO sterilization is specifically used for delicate medical instruments that are sensitive to high heat or moisture, which would otherwise be damaged in a traditional steam-based autoclave.
+Application: This gas-based process is ideal for items made of plastic, rubber, or sensitive electronic components, as it effectively destroys bacteria, viruses, and fungi without the need for extreme heat.
+Key Operational Distinction: It is crucial to distinguish between these two: while autoclaves rely solely on high-pressure steam for sterilization, ETO machines utilize a chemical gas process to ensure complete sterility for heat-sensitive equipment..
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">3. Packaging</h3>
+    <img src="IMG20260622205940.jpg" alt="ETO Packaging" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Packaging and ETO Sterilization
+Suitability for ETO: As you noted, non-metallic items like suction tubes are perfect candidates for ETO sterilization because they are often heat-sensitive and would be damaged by the high-pressure steam used in traditional autoclaves.
+Medical Pouches: The packaging shown consists of a dual-layer pouch, typically made of plastic on one side and a breathable medical-grade paper on the other. This design is critical for ETO because it allows the gas to permeate the package, reach the inner surfaces of the tube, and effectively destroy microorganisms while maintaining a sterile barrier afterward.
+Sterile Barrier: Once the ETO process is complete, the pouch ensures the item remains sterile until it is ready for patient use.
+Understanding the Reference
+Context in Medical Practice: The image highlights the importance of choosing the correct sterilization method based on the material of the instrument. While metallic surgical sets are processed in autoclaves (using steam and pressure), delicate plastic or rubber components like these tubes are routed to the ETO system to ensure they are safely disinfected without losing their structural integrity.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">4. Vertical Loading ETO Machine</h3>
+    <img src="IMG20260622205934.jpg" alt="Vertical Loading ETO" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Loading Process: As seen in the image, medical-grade pouches containing sensitive items (such as suction tubes) are systematically arranged on a wire rack or loading trolley. This trolley is then carefully inserted into the main sterilization chamber.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">5. Loading ETO Machine</h3>
+    <img src="IMG20260622220139.jpg" alt="Loading ETO" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Loading Process: As seen in the image, medical-grade pouches containing sensitive items (such as suction tubes) are systematically arranged on a wire rack or loading trolley. This trolley is then carefully inserted into the main sterilization chamber.
+Purpose of ETO Sterilization: The use of Ethylene Oxide gas is specifically reserved for delicate medical instruments that would otherwise be damaged by the high heat or moisture levels found in traditional steam-based sterilization methods.
+Operational Steps:
+Once the loaded trolley is positioned inside, the chamber door is securely sealed to ensure an airtight environment.
+The sterilization cycle is then initiated via the control panel or HMI (Human-Machine Interface).
+The system facilitates the circulation of gas to penetrate the breathable packaging, ensuring that all microorganisms are effectively eliminated.
+Importance of Proper Loading: This organized loading procedure is vital, as it ensures that every packaged item is fully exposed to the gas, which is a fundamental requirement for achieving total sterility.
+    </div>
+    <a class="back-btn" onclick="showPage('sterilMachinePage')">Back</a>
 </div>
 
+<!-- ULTRASONIC FULL -->
 <div id="ultrasonicPage" class="page app-container">
-  <h1>Ultrasonic Cleaner</h1>
-  <img src="IMG20260622224715.jpg" alt="Ultrasonic" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    <b>Function:</b> Deep cleaning of instruments using ultrasonic waves before sterilization.<br>
-    <b>Important:</b> Never operate without water. Controls include power, ultrasonic on/off, heater and digital timer.
-  </div>
-  <a class="back-btn" onclick="showPage('sterilMachinePage')">← Back</a>
+    <h1>ULTRASONIC</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Ultrasonic Machine</h3>
+    <img src="IMG20260622224715.jpg" alt="Ultrasonic Machine" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Function: This machine is designed for cleaning medical and laboratory instruments using ultrasonic waves.
+Operational Safety: The machine features a prominent warning label stating "DO NOT OPERATE WITHOUT WATER," which is essential to prevent damage to the ultrasonic transducers.
+Controls: The control panel includes switches for power, ultrasonic activation ("ULTRA ON/OFF"), and heater control, along with a digital display that shows timing and temperature settings.
+Usage: Such equipment is commonly found in laboratory, clinical, and small healthcare settings to ensure that instruments are thoroughly cleaned before undergoing sterilization processes.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">2. Function of Ultrasonic Machine</h3>
+    <img src="IMG20260622224726.jpg" alt="Ultrasonic Function" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Function: This equipment is used to clean medical and laboratory instruments thoroughly using ultrasonic waves.
+Operating Caution: It is strictly labeled "DO NOT OPERATE WITHOUT WATER" to avoid causing damage to the machine's components.
+Design: The unit features a stainless steel construction and is equipped with a control panel that includes power switches, heater controls, and a digital display for timing and temperature settings.
+Application: It is primarily used in clinical, laboratory, and small healthcare settings to prepare instruments for the subsequent sterilization process.
+    </div>
+    <a class="back-btn" onclick="showPage('sterilMachinePage')">Back</a>
 </div>
 
-<div id="storeLobbyPage" class="page app-container">
-  <h1>Store Lobby</h1>
-  <div class="details-box">
-    Sterile storage area for processed instrument sets. Maintain proper temperature, humidity and First-In-First-Out (FIFO) system. Only authorized staff should enter.
-  </div>
-  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+<!-- STORE LOBBY FULL -->
+<div id="storelobyPage" class="page app-container">
+    <h1>STORE LOBBY</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Vertical Autoclave</h3>
+    <img src="IMG20260622224957.jpg" alt="Store Lobby 1" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">2. Vertical Autoclave</h3>
+    <img src="IMG20260622224955.jpg" alt="Store Lobby 2" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">3. Vertical Autoclave</h3>
+    <img src="IMG20260622224954.jpg" alt="Store Lobby 3" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">4. Vertical Autoclave</h3>
+    <img src="IMG20260622224948.jpg" alt="Store Lobby 4" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">5. Vertical Autoclave</h3>
+    <img src="IMG20260622224936.jpg" alt="Store Lobby 5" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">6. Vertical Autoclave</h3>
+    <img src="IMG20260622224916.jpg" alt="Store Lobby 6" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+    <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
-<div id="washingAreaPage" class="page app-container">
-  <h1>Washing Area</h1>
-  <div class="details-box">
-    Area for manual + ultrasonic cleaning of used instruments. Strict separation of dirty and clean zones is mandatory to prevent cross-contamination.
-  </div>
-  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+<!-- WASHING AREA FULL -->
+<div id="washingareaPage" class="page app-container">
+    <h1>WASHING AREA</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Vertical Autoclave</h3>
+    <img src="IMG20260622224656.jpg" alt="Washing Area 1" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">2. Vertical Autoclave</h3>
+    <img src="IMG20260622224711.jpg" alt="Washing Area 2" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">3. Vertical Autoclave</h3>
+    <img src="IMG20260622224745.jpg" alt="Washing Area 3" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">4. Vertical Autoclave</h3>
+    <img src="IMG20260622224748.jpg" alt="Washing Area 4" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">5. Vertical Autoclave</h3>
+    <img src="IMG20260622224750.jpg" alt="Washing Area 5" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">6. Vertical Autoclave</h3>
+    <img src="IMG20260622224750.jpg" alt="Washing Area 6" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+    <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
-<div id="sterilizationZonePage" class="page app-container">
-  <h1>Sterilization Zone</h1>
-  <div class="details-box">
-    Controlled area where autoclaves, ETO and other sterilizers are operated. Only trained CSSD staff allowed. Proper PPE and monitoring of cycles is essential.
-  </div>
-  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+<!-- STERILIZATION ZONE FULL -->
+<div id="sterilizationzonePage" class="page app-container">
+    <h1>STERILIZATION ZONE</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Vertical Autoclave</h3>
+    <img src="IMG20260622224846.jpg" alt="Sterilization Zone 1" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">2. Vertical Autoclave</h3>
+    <img src="IMG20260622224858.jpg" alt="Sterilization Zone 2" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">3. Vertical Autoclave</h3>
+    <img src="IMG20260622224906.jpg" alt="Sterilization Zone 3" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">4. Vertical Autoclave</h3>
+    <img src="IMG20260622225138.jpg" alt="Sterilization Zone 4" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">5. Vertical Autoclave</h3>
+    <img src="IMG20260622225145.jpg" alt="Sterilization Zone 5" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">6. Vertical Autoclave</h3>
+    <img src="IMG20260622225151.jpg" alt="Sterilization Zone 6" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">7. Vertical Autoclave</h3>
+    <img src="IMG20260622225157.jpg" alt="Sterilization Zone 7" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+
+    <h3 style="margin-top:20px; color:var(--primary);">8. Vertical Autoclave</h3>
+    <img src="IMG20260622224957.jpg" alt="Sterilization Zone 8" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Top-loading cylindrical chamber, Stainless steel construction, Ideal for culture media.
+    </div>
+    <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
+<!-- INCHARGE -->
 <div id="inchargePage" class="page app-container">
-  <h1>CSSD Incharge</h1>
-  <img src="IMG_20260623_164436.png" alt="Mr. Rajesh Parihar" style="width:100%;border-radius:14px;margin:10px 0;" onerror="this.style.display='none'">
-  <div class="details-box">
-    <b>Mr. Rajesh Parihar</b><br>
-    In-charge, CSSD, Krishna Hospital<br><br>
-    15 years of dedicated service in sterile processing and patient safety. Recognized for technical expertise and unwavering commitment to the highest sterilization standards.
-  </div>
-  <a class="back-btn" onclick="showPage('equipmentPage')">← Back</a>
+    <h1>INCHARGE - Mr. RAJESH PARIHAR</h1>
+    
+    <h3 style="margin-top:20px; color:var(--primary);">1. Mr. RAJESH PARIHAR</h3>
+    <img src="IMG_20260623_164436.png" alt="Mr. Rajesh Parihar" style="width:100%; border-radius:15px; margin: 10px 0;" onerror="this.style.display='none'">
+    <div class="details-box">
+        <b>Usage:</b> Laboratory, Clinics, and small healthcare centers.<br>
+        <b>Mechanism:</b> Steam under pressure (Gravity displacement).<br>
+        <b>Key Features:</b> Mr. Rajesh Parihar, In-charge, CSSD, Krishna Hospital, in recognition of 15 years of distinguished service and unwavering commitment to excellence. Your meticulous attention to sterilization standards, combined with your vast technical expertise, has been instrumental in upholding the highest safety protocols at our hospital. We honor your dedication and the integrity you bring to every aspect of your professional journey."Celebrating 15 years of dedicated service in sterile processing and patient safety.
+Your leadership, technical mastery, and steadfast commitment to excellence have been a cornerstone of Krishna Hospital's success. Thank you for your profound contribution to clinical quality.".
+    </div>
+    <a class="back-btn" onclick="showPage('equipmentPage')">Back</a>
 </div>
 
-<!-- ===================== EDUCATION LIBRARY ===================== -->
+<!-- EDUCATION LIBRARY -->
 <div id="educationPage" class="page app-container">
-  <div class="top-bar">
-    <h1 style="margin:0;font-size:19px;">Education Library</h1>
-    <button class="icon-btn" onclick="toggleDark()">🌓</button>
-  </div>
-  <div class="grid">
-    <div class="card" onclick="openCourse('gnm')">📘<br>GNM</div>
-    <div class="card" onclick="openCourse('ot')">🔧<br>OT Technician</div>
-    <div class="card" onclick="openCourse('pbsc')">📗<br>PB B.Sc Nursing</div>
-    <div class="card" onclick="openCourse('bsc')">📕<br>B.Sc Nursing</div>
-  </div>
-  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+    <div class="top-bar">
+        <h1 style="margin:0;font-size:20px;">Education Library</h1>
+        <button class="icon-btn" onclick="toggleDark()">🌓</button>
+    </div>
+    <div class="grid">
+        <div class="card" onclick="openCourse('gnm')">📘<br>GNM</div>
+        <div class="card" onclick="openCourse('ot')">🔧<br>OT Technician</div>
+        <div class="card" onclick="openCourse('pbsc')">📗<br>PB B.Sc Nursing</div>
+        <div class="card" onclick="openCourse('bsc')">📕<br>B.Sc Nursing</div>
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
-<!-- Dynamic Education Pages -->
 <div id="coursePage" class="page app-container">
-  <div class="top-bar">
-    <h1 id="courseTitle" style="margin:0;font-size:17px;"></h1>
-    <button class="icon-btn" onclick="toggleDark()">🌓</button>
-  </div>
-  <div id="yearGrid" class="grid"></div>
-  <a class="back-btn" onclick="showPage('educationPage')">← Back</a>
+    <div class="top-bar">
+        <h1 id="courseTitle" style="margin:0;font-size:18px;"></h1>
+        <button class="icon-btn" onclick="toggleDark()">🌓</button>
+    </div>
+    <div id="yearGrid" class="grid"></div>
+    <a class="back-btn" onclick="showPage('educationPage')">Back</a>
 </div>
 
 <div id="yearPage" class="page app-container">
-  <div class="top-bar">
-    <h1 id="yearTitle" style="margin:0;font-size:16px;"></h1>
-    <button class="icon-btn" onclick="toggleDark()">🌓</button>
-  </div>
-  <div id="subjectGrid" class="grid"></div>
-  <a class="back-btn" id="yearBackBtn">← Back</a>
+    <div class="top-bar">
+        <h1 id="yearTitle" style="margin:0;font-size:16px;"></h1>
+        <button class="icon-btn" onclick="toggleDark()">🌓</button>
+    </div>
+    <div id="subjectGrid" class="grid"></div>
+    <a class="back-btn" id="yearBackBtn">Back</a>
 </div>
 
 <div id="subjectPage" class="page app-container">
-  <div class="top-bar">
-    <h1 id="subjectTitle" style="margin:0;font-size:15px;"></h1>
-    <button class="icon-btn" onclick="toggleDark()">🌓</button>
-  </div>
-  <div id="chapterList"></div>
-  <a class="back-btn" id="subjectBackBtn">← Back</a>
+    <div class="top-bar">
+        <h1 id="subjectTitle" style="margin:0;font-size:15px;"></h1>
+        <button class="icon-btn" onclick="toggleDark()">🌓</button>
+    </div>
+    <div id="chapterList"></div>
+    <a class="back-btn" id="subjectBackBtn">Back</a>
 </div>
 
 <div id="chapterPage" class="page app-container">
-  <div class="top-bar">
-    <h1 id="chapterTitle" style="margin:0;font-size:14px;max-width:70%;"></h1>
-    <div>
-      <button class="icon-btn" onclick="toggleBookmark()" id="bookmarkBtn">☆</button>
-      <button class="icon-btn" onclick="toggleDark()">🌓</button>
+    <div class="top-bar">
+        <h1 id="chapterTitle" style="margin:0;font-size:14px;max-width:70%;"></h1>
+        <div>
+            <button class="icon-btn" onclick="toggleBookmark()" id="bookmarkBtn">☆</button>
+            <button class="icon-btn" onclick="toggleDark()">🌓</button>
+        </div>
     </div>
-  </div>
+    <div id="notesDisplay" class="notes-area"></div>
+    <div id="fileLinks" style="margin-top:10px;"></div>
 
-  <div id="notesDisplay" class="notes-area"></div>
-  <div id="fileLinks" style="margin-top:10px;"></div>
+    <div id="adminEditArea" class="admin-panel hidden">
+        <h4>🔐 Admin Edit Panel</h4>
+        <label class="small-text">Notes / Important Points:</label>
+        <textarea id="notesEditor" class="edit-notes"></textarea>
+        <br>
+        <label class="small-text">PDF / File Link (Google Drive etc.):</label>
+        <input type="text" id="fileLinkInput" class="search-box" placeholder="https://drive.google.com/...">
+        <button class="save-btn" onclick="saveNotes()">💾 Save Notes & Link</button>
+    </div>
 
-  <!-- Admin only -->
-  <div id="adminEditArea" class="admin-panel hidden">
-    <h4>🔐 Admin Edit Panel</h4>
-    <label class="small-text">Notes / Important Points:</label>
-    <textarea id="notesEditor" class="edit-notes"></textarea>
-    <br>
-    <label class="small-text">PDF / File Link (Google Drive etc.):</label>
-    <input type="text" id="fileLinkInput" class="search-box" placeholder="https://drive.google.com/...">
-    <button class="save-btn" onclick="saveNotes()">💾 Save Notes & Link</button>
-  </div>
-
-  <div style="margin-top:14px;">
-    <button class="btn" style="background:var(--success);font-size:14px;" onclick="markComplete()">✅ Mark as Complete</button>
-  </div>
-  <a class="back-btn" id="chapterBackBtn">← Back</a>
+    <div style="margin-top:14px;">
+        <button class="btn" style="background:var(--success);font-size:14px;" onclick="markComplete()">✅ Mark as Complete</button>
+    </div>
+    <a class="back-btn" id="chapterBackBtn">Back</a>
 </div>
 
-<!-- ===================== PATIENT CARE ===================== -->
+<!-- PATIENT CARE -->
 <div id="patientCarePage" class="page app-container">
-  <h1>Patient Care</h1>
-  <div class="details-box" style="text-align:center;padding:28px;">
-    This section is under development.<br>
-    Coming soon with important patient care protocols & guidelines.
-  </div>
-  <a class="back-btn" onclick="showPage('homePage')">← Back to Home</a>
+    <h1>Patient Care</h1>
+    <div class="details-box" style="text-align:center;padding:30px;">
+        This section is under development.<br>
+        Coming soon with important patient care protocols & guidelines.
+    </div>
+    <a class="back-btn" onclick="showPage('homePage')">Back to Home</a>
 </div>
 
 <script>
-// ===================== DATA - GNM 1st Year Official =====================
 const educationData = {
   gnm: {
     name: "GNM",
@@ -647,7 +836,7 @@ const educationData = {
           "Ch5: Burns, Scalds & Heat Stroke": "Management of burns and heat stroke.",
           "Ch6: Poisoning, Dog Bite, Snake Bite": "First aid in poisoning and bites.",
           "Ch7: Drowning, Choking & Strangulation": "Emergency management.",
-          "Ch8: Unconsciousness & CPR - Cardio Pulmonary Resuscitation": "CPR steps and management of unconscious patient."
+          "Ch8: Unconsciousness & CPR": "CPR steps and management of unconscious patient."
         },
         "Community Health Nursing-I (K.Park)": {
           "Ch1: Concept of Health, Community Health & PHC": "Definitions and concepts of health, community health and primary health care.",
@@ -768,7 +957,6 @@ const educationData = {
   }
 };
 
-// ===================== STATE =====================
 let currentCourse = null;
 let currentYear = null;
 let currentSubject = null;
@@ -778,10 +966,10 @@ let founderTapCount = 0;
 let founderTapTimer = null;
 const ADMIN_PASSWORD = "MedEd@Thrive2026";
 
-// ===================== CORE =====================
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-  document.getElementById(pageId).classList.add('active-page');
+  const el = document.getElementById(pageId);
+  if (el) el.classList.add('active-page');
   window.scrollTo(0, 0);
 }
 
@@ -790,7 +978,6 @@ function toggleDark() {
   localStorage.setItem('darkMode', document.body.classList.contains('dark'));
 }
 
-// 5-tap on Founder for Admin
 function handleFounderTap() {
   founderTapCount++;
   if (founderTapTimer) clearTimeout(founderTapTimer);
@@ -809,7 +996,6 @@ function handleFounderTap() {
   }
 }
 
-// ===================== EDUCATION =====================
 function openCourse(key) {
   currentCourse = key;
   const course = educationData[key];
@@ -876,7 +1062,6 @@ function openChapter(chapter) {
   document.getElementById('chapterTitle').innerText = chapter;
   document.getElementById('notesDisplay').innerText = notes;
 
-  // File link
   const fileLink = localStorage.getItem('file_' + key);
   const fileDiv = document.getElementById('fileLinks');
   if (fileLink) {
@@ -885,11 +1070,9 @@ function openChapter(chapter) {
     fileDiv.innerHTML = '';
   }
 
-  // Bookmark
   const isBook = localStorage.getItem('bookmark_' + key) === 'true';
   document.getElementById('bookmarkBtn').innerText = isBook ? '★' : '☆';
 
-  // Admin panel
   if (isAdmin) {
     document.getElementById('adminEditArea').classList.remove('hidden');
     document.getElementById('notesEditor').value = notes;
@@ -938,7 +1121,6 @@ function markComplete() {
   alert("✅ Chapter marked as complete!");
 }
 
-// Init
 if (localStorage.getItem('darkMode') === 'true') {
   document.body.classList.add('dark');
 }
